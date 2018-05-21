@@ -5,7 +5,7 @@ Route::get('/', function () {
     if (Auth::check()) {
         return redirect('/dashboard');
     }
-    return redirect('/login');
+    return view('welcome');
 })->name('home');
 
 // login y asociados GUEST
