@@ -7,8 +7,7 @@ use App\Http\Controllers\CrudHelper\ControllerUtils;
 use App\Model\Role;
 use App\Model\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -22,13 +21,13 @@ class UserController extends ControllerCrud
 
     public function index()
     {
-        $roles = Role::all();
-        return view('sections.users.index')->with(['roles' => $roles]);
+        $roles = Role::orderBy('name', 'asc')->get();
+        return view('sections.management.users.index')->with(['roles' => $roles]);
     }
 
     public function getAll(Request $request)
     {
-        parent::setCustomQueryGetAll(User::with('role')->orderBy('role_id', 'desc')->get());
+        parent::setCustomQueryGetAll(User::with('role')->orderBy('role_id', 'asc')->get());
         return parent::getAll($request);
     }
 
@@ -63,6 +62,19 @@ class UserController extends ControllerCrud
             }
 
             $user->save();
+
+            try{
+
+                Mail::send('emails.send-new-account', ['user' => $user, 'password' => $request->password], function ($message) use ($user)
+                {
+//                    $message->from('mantenedorcontenidobrainy@gmail.com', 'Mantenedor Contenidos Brainy');
+                    $message->to($user->email, $user->firstname)->subject('Contraseña de Acceso Mantenedor de Contenidos');
+
+                });
+
+            }catch (\Exception $e){
+//                return ControllerUtils::errorResponseJson($e->getMessage());
+            }
 
             if($user){
                 return ControllerUtils::successResponseJson($user, "Registro creado correctamente.");
@@ -100,6 +112,7 @@ class UserController extends ControllerCrud
             $user->role_id = $request->role_id;
 
             if ($request->hasFile('avatar')) {
+                //return $request->avatar;
                 $user->avatar = $request->file('avatar')->store('public/avatars');
             }
 
@@ -125,5 +138,10 @@ class UserController extends ControllerCrud
     {
         $roles = Role::all();
         return view('sections.users.create')->with(['roles' => $roles]);
+    }
+
+    public function getProfile()
+    {
+        return view('sections.profile.index');
     }
 }

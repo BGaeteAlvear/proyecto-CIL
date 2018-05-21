@@ -1,73 +1,67 @@
 <?php
-use UxWeb\SweetAlert\SweetAlert as Alert;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
+// home
 Route::get('/', function () {
-    return view('template.base');
+    if (Auth::check()) {
+        return redirect('/dashboard');
+    }
+    return redirect('/login');
 })->name('home');
 
+// login y asociados GUEST
+Route::get('/login', 'LoginController@showLogin')->name('login.show');
+Route::post('/login', 'LoginController@login')->name('login');
+Route::post('/logout', 'LoginController@logout')->name('logout');
+Route::get('/login/send-password', 'LoginController@showSendPassword')->name('login.show-send-password');
+Route::post('/login/send-password', 'LoginController@sendPassword')->name('login.send-password');
+Route::get('/login/recovery-password', 'LoginController@showRecoveryPassword')->name('login.show-recovery-password');
+Route::post('/login/recovery-password', 'LoginController@recoveryPassword')->name('login.recovery-password');
 
-Route::get('dashboard', function(){
-    return view('template.base');
-})->name('dashboard');
+// todas las rutas al menos debes estar auntenficado
+Route::middleware('auth')->group(function () {
 
-Route::prefix('profile')->group(function () {
+    //dasboards
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/dashboard/asigna-vs-aprob','DashboardController@getAsignVsAprob')->name('dashboard.get-asigna-vs-aprob');
+    Route::get('/dashboard/nodes-statuses','DashboardController@getNodesStatuses')->name('dashboard.get-nodes-statuses');
 
-    Route::get('/', function () {
-        return view('sections.profile.index');
-    })->name('profile');
-
-});
-
-
-Route::prefix('users')->group(function () {
-
-    Route::get('/','UserController@index')->name('users');
-    Route::get('/all', 'UserController@getAll')->name('users.all');
-    Route::get('/create','UserController@create')->name('users.create');
-    Route::post('/store','UserController@store')->name('users.store');
-    Route::post('/update', 'UserController@update')->name('users.update');
-    Route::post('/change-status', 'UserController@changeStatus')->name('users.change-status');
-    Route::post('/destroy', 'UserController@destroy')->name('users.destroy');
-
-});
-
-
-
-Route::prefix('config')->group(function () {
-
-    Route::get('/', function(){
-        return view('sections.config.index');
-    })->name('config');
-
-    // rutas categoria de nodos
-    Route::prefix('node-categories')->group(function () {
-        Route::get('/', 'NodeCategoryController@index')->name('node-categories');
-        Route::get('/all', 'NodeCategoryController@getAll')->name('node-categories.all');
-        Route::post('/store', 'NodeCategoryController@store')->name('node-categories.store');
-        Route::post('/update', 'NodeCategoryController@update')->name('node-categories.update');
-        Route::post('/change-status', 'NodeCategoryController@changeStatus')->name('node-categories.change-status');
-        Route::post('/destroy', 'NodeCategoryController@destroy')->name('node-categories.destroy');
+    // pefil de usuario
+    Route::prefix('profile')->group(function () {
+        /*Route::get('/', function () {
+            return view('sections.profile.index');
+        })->name('profile');*/
+        Route::get('/', 'UserController@getProfile')->name('profile');
+        Route::post('update-profile', 'ProfileController@updateProfile')->name('update-profile');
+        Route::post('change-password', 'ProfileController@changePassword')->name('change-password');
     });
 
-    Route::prefix('node-subcategories')->group(function () {
-        Route::get('/', 'NodeSubcategoryController@index')->name('node-subcategories');
-        Route::get('/all', 'NodeSubcategoryController@getAll')->name('node-subcategories.all');
-        Route::post('/store', 'NodeSubcategoryController@store')->name('node-subcategories.store');
-        Route::post('/update', 'NodeSubcategoryController@update')->name('node-subcategories.update');
-        Route::post('/change-status', 'NodeSubcategoryController@changeStatus')->name('node-subcategories.change-status');
-        Route::post('/destroy', 'NodeSubcategoryController@destroy')->name('node-subcategories.destroy');
+    //ADMIN
+    //gestion de usuarios
+    Route::middleware('admin')->group(function () {
+
+        Route::prefix('management-users')->group(function () {
+            Route::get('/', 'UserController@index')->name('management.users');
+            Route::get('/all', 'UserController@getAll')->name('management.users.all');
+            Route::get('/create', 'UserController@create')->name('management.users.create');
+            Route::post('/store', 'UserController@store')->name('management.users.store');
+            Route::post('/update', 'UserController@update')->name('management.users.update');
+            Route::post('/change-status', 'UserController@changeStatus')->name('management.users.change-status');
+            Route::post('/destroy', 'UserController@destroy')->name('management.users.destroy');
+        });
+
     });
 
+    //ADMIN Y VALIDADOR
+    //nodos sugeridos
+    Route::middleware('cajero')->group(function () {
+
+    });
+
+
+    // CONSTRUCTOR
+    Route::middleware('cliente')->group(function () {
+
+    });
 
 });
 

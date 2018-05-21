@@ -10,18 +10,18 @@
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
 
-            <li class="dropdown messages-menu">
+            <!--li class="dropdown messages-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-envelope-o"></i>
                     <span class="label label-success">4</span>
                 </a>
-                <ul class="dropdown-menu">
-                    <li class="header">You have 4 messages</li>
+                <!--ul class="dropdown-menu">
+                    <!--li class="header">You have 4 messages</li>
                     <li>
                         <!-- inner menu: contains the actual data -->
-                        <ul class="menu">
+                        <!--ul class="menu">
                             <li><!-- start message -->
-                                <a href="#">
+                                <!--a href="#">
                                     <div class="pull-left">
                                         <img src="/images/user-default.png" class="img-circle" alt="User Image">
                                     </div>
@@ -33,13 +33,13 @@
                                 </a>
                             </li>
                             <!-- end message -->
-                        </ul>
+                        <!--/ul>
                     </li>
                     <li class="footer"><a href="#">See All Messages</a></li>
                 </ul>
             </li>
             <!-- Notifications: style can be found in dropdown.less -->
-            <li class="dropdown notifications-menu">
+            <!--li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-bell-o"></i>
                     <span class="label label-warning">10</span>
@@ -48,7 +48,7 @@
                     <li class="header">You have 10 notifications</li>
                     <li>
                         <!-- inner menu: contains the actual data -->
-                        <ul class="menu">
+                        <!--ul class="menu">
                             <li>
                                 <a href="#">
                                     <i class="fa fa-users text-aqua"></i> 5 new members joined today
@@ -60,7 +60,7 @@
                 </ul>
             </li>
             <!-- Tasks: style can be found in dropdown.less -->
-            <li class="dropdown tasks-menu">
+            <!--li class="dropdown tasks-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-tasks"></i>
                     <span class="label label-danger">9</span>
@@ -69,9 +69,9 @@
                     <li class="header">You have 9 tasks</li>
                     <li>
                         <!-- inner menu: contains the actual data -->
-                        <ul class="menu">
+                        <!--ul class="menu">
                             <li><!-- Task item -->
-                                <a href="#">
+                                <!--a href="#">
                                     <h3>
                                         Design some buttons
                                         <small class="pull-right">20%</small>
@@ -85,7 +85,7 @@
                                 </a>
                             </li>
                             <!-- end task item -->
-                        </ul>
+                        <!--/ul>
                     </li>
                     <li class="footer">
                         <a href="#">View all tasks</a>
@@ -95,17 +95,17 @@
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="/images/user-default.png" class="user-image" alt="User Image">
-                    <span class="hidden-xs">Username</span>
+                    <img src="{{Storage::url(Auth::user()->avatar)}}" class="user-image">
+                    <span class="hidden-xs">{{ Auth::user()->firstname }}</span>
                 </a>
                 <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header">
-                        <img src="/images/user-default.png" class="img-circle" alt="User Image">
+                        <img src="{{Storage::url(Auth::user()->avatar)}}" class="img-circle">
 
                         <p>
-                            Username - Role
-                            <small>Last login 00-00-0000</small>
+                            {{ Auth::user()->firstname . ' ' .Auth::user()->lastname  }}
+                            <small>Último Acceso : {{ Auth::user()->last_login_date ? (new DateTime(Auth::user()->last_login_date))->format('d-m-Y H:i:s') : 'nunca' }}</small>
                         </p>
                     </li>
                     <!-- Menu Body -->
@@ -113,18 +113,22 @@
                     <!-- Menu Footer-->
                     <li class="user-footer">
                         <div class="pull-left">
-                            <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                            <!--a href="{{ route('profile') }}" class="btn btn-default btn-flat">Perfil</a-->
                         </div>
                         <div class="pull-right">
-                            <a href="#" class="btn btn-danger btn-flat">Cerrar Sesión</a>
+                            <form action="{{ route('logout') }}" method="POST">
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-danger btn-flat">Cerrar Sesión</button>
+                            </form>
                         </div>
+
                     </li>
                 </ul>
             </li>
             <!-- Control Sidebar Toggle Button -->
-            <li>
+            <!--li>
                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-question"></i></a>
-            </li>
+            </li-->
         </ul>
     </div>
 </nav>

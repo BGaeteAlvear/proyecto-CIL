@@ -100,9 +100,10 @@ $(function () {
                 }
                 if(data.status === 'success'){
                     showToastSuccess(data.message);
-                    showToastWarning('Tenga en cuenta que el usuario que ha modificado puede estar siendo utilizado por nodos y este cambio será reflejado en estos.');
+                    showToastWarning('Tenga en cuenta que el elemento que ha modificado puede estar siendo utilizado por otros elementos del software y este cambio será reflejado en estos.');
                     dissmisModal(config.modalEdit , config.modalEdit);
                     updateRow(items.findIndex(item => item.id == data.entity.id), data.entity);
+
                 }
             },
             error: function (error) {
@@ -135,11 +136,16 @@ function changeStatusToggle(rowId){
             showToastError(data.errors.message ? data.errors.message : null);
         }
         if(data.status === 'success'){
-
+            var name ='';
+            if (data.entity.firstname) {
+                name = data.entity.firstname;
+            }else{
+                name = data.entity.name;
+            }
             var status = data.entity.active == 1 ? "activado" : "desactivado";
-            showToastSuccess('Se ha ' + status + ' el usuario ' + data.entity.name);
+            showToastSuccess('Se ha ' + status + ' el elemento ' + name);
             if(status == 'desactivado'){
-                showToastWarning('Tenga en cuenta que el usuario que ha deshabilitado puede estar siendo utilizado por nodos y este dejará de aparecer como una opción seleccionable.');
+                showToastWarning('Tenga en cuenta que el elemento que ha deshabilitado puede estar siendo utilizado por elementos del software y este dejará de aparecer como una opción seleccionable.');
             }
             updateRow(items.findIndex(item => item.id == data.entity.id), data.entity);
         }
@@ -156,7 +162,7 @@ function remove(id){
 
     swal({
         title: '¿Estas seguro?',
-        text: "Si eliminas esta categoría de nodo se perderán todas las relaciones actuales.",
+        text: "Si eliminas este elemento, se perderán las relaciones actuales referenciadas a este elemento.",
         type: 'question',
         showCancelButton: true,
         confirmButtonText: 'Si, Eliminar',
@@ -184,7 +190,7 @@ function remove(id){
                     }
                     if(data.status === 'success'){
                         showToastSuccess(data.message);
-                        showToastWarning('Tenga en cuenta que el usuario que ha eliminado ya no puede ser referenciado.');
+                        showToastWarning('Tenga en cuenta que el elemento que ha eliminado ya no puede ser referenciado.');
                         config.table.bootstrapTable('refresh');
                     }
                 },
@@ -346,9 +352,12 @@ function showModal(modal){
 function dissmisModal(form, modal){
     clearInputs(form);
     hideModal(modal);
+    if ($('.select2')) {
+      $('.select2').val(null).trigger('change');
+    }
+    $('#image-avatar').attr('src', 'storage/avatars/user-default.png');
+    $('#file').val('');
 }
-
-
 
 // limpia el campo de error cuando se escribe denuevo create
 $('#form-create').find('#name').keyup(function () {

@@ -26,9 +26,27 @@ class CreateUsersTable extends Migration
 
             $table->integer('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles');
+            $table->string('recovery_pin')->nullable();
+            $table->dateTime('last_login_date')->nullable();
+            $table->dateTime('actual_login_date')->nullable();
 
             $table->timestamps();
         });
+
+        $users = [
+            [ 'id' => null,'role'=>'administrador', 'firstname' => 'admin', 'email'=>'admin@admin.com']
+        ];
+
+        foreach ($users as $user){
+            $role = App\Model\Role::where('name','like', $user['role'])->first();
+            $u = new App\Model\User();
+            $u->id = $user['id'];
+            $u->role_id = $role->id;
+            $u->email = $user['email'];
+            $u->firstname = $user['firstname'];
+            $u->password = bcrypt('1234');
+            $u->save();
+        }
     }
 
     /**
