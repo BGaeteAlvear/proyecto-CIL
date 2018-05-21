@@ -374,6 +374,8 @@ background-size: cover;
 }
 
 .login-boxer img{
+    margin-top: 90px;
+    margin-bottom: -75px;
     width: 100%;
     max-width: 200px;
 }
@@ -455,7 +457,14 @@ background-size: cover;
 }
 
 .skin-black-light .main-header>.logo {
-    background-color: #fff;
+    background-color: #30861c;
+    color: #fff;
+    /*border-bottom: 1px solid #d2d6de;*/
+    border-bottom: 1px solid transparent;
+    border-right: none;
+}
+.skin-black-light .main-header>.logo:hover {
+    background-color: #39a221;
     color: #fff;
     /*border-bottom: 1px solid #d2d6de;*/
     border-bottom: 1px solid transparent;
@@ -465,10 +474,11 @@ background-size: cover;
 .skin-black-light .main-header {
     /*border-bottom: 1px solid #d2d6de; */
     border-bottom: 1px solid transparent;
+    background-color: #30861c;
 }
 
 .skin-black-light .wrapper, .skin-black-light .main-sidebar, .skin-black-light .left-side {
-    background-color: #fff;
+    background-color: #4a4a4e;
 }
 
 .skin-black-light .sidebar-menu>li.header {
