@@ -16,6 +16,7 @@
                 background-image: url("images/background_welcome_img.png");
                 background-repeat:no-repeat;
                 background-position:center;
+                background-size: cover;
                 color: #636b6f;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
@@ -64,6 +65,7 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+           
         </style>
     </head>
     <body>
@@ -73,8 +75,8 @@
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ url('/login') }}" style="color: white">Ingreso</a>
-                        <a href="{{ url('/register') }} " style="color: white">Registro</a>
+                        <a href="{{ url('/login') }}" style="color: white;font-size:15px;">Ingreso</a>
+                        <a href="{{ url('/register') }} " style="color: white;font-size:15px;">Registro</a>
                     @endif
                 </div>
             @endif
@@ -84,7 +86,9 @@
                         <img src="{{ url('assets/images/logo.png') }}" alt="BEGAMES" width="70%">
                 </div>
                 <div class="text-center">
-                    <a style="color: white">Lo Que Necesitas Para Ser Un Verdadero Gamer</a>
+                    <b style=" color:white;
+                            font-size:20px;
+                            font-weight:bold;">Lo Que Necesitas Para Ser Un Verdadero Gamer</b>
                 </div>
             </div>
         </div>
