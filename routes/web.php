@@ -27,9 +27,7 @@ Route::middleware('auth')->group(function () {
 
     // pefil de usuario
     Route::prefix('profile')->group(function () {
-        /*Route::get('/', function () {
-            return view('sections.profile.index');
-        })->name('profile');*/
+
         Route::get('/', 'UserController@getProfile')->name('profile');
         Route::post('update-profile', 'ProfileController@updateProfile')->name('update-profile');
         Route::post('change-password', 'ProfileController@changePassword')->name('change-password');
@@ -49,16 +47,19 @@ Route::middleware('auth')->group(function () {
             Route::post('/destroy', 'UserController@destroy')->name('management.users.destroy');
         });
 
+        Route::prefix('management-games')->group(function () {
+            Route::get('/', 'GameController@index')->name('management.games');
+        });
+
     });
 
-    //ADMIN Y VALIDADOR
-    //nodos sugeridos
+
     Route::middleware('cajero')->group(function () {
 
     });
 
 
-    // CONSTRUCTOR
+
     Route::middleware('cliente')->group(function () {
 
     });

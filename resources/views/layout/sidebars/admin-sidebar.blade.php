@@ -4,3 +4,9 @@
         <span>Gestión de Usuarios</span>
     </a>
 </li>
+<li {{ (Request::is('management-games') ? 'class=active' : '') }}>
+    <a href="{{ route('management.games') }}">
+        <i class="fa fa-gamepad"></i>
+        <span>Juegos</span>
+    </a>
+</li>
