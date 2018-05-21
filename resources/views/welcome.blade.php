@@ -80,8 +80,8 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md" style="font-family: sans-serif;">
-                    <a style="color: rgb(128, 255, 128)">BE</a> <a style="color: white"> Games</a>
+                <div class="text-center">
+                        <img src="{{ url('assets/images/logo.png') }}" alt="BEGAMES" width="70%">
                 </div>
                 <div class="text-center">
                     <a style="color: white">Lo Que Necesitas Para Ser Un Verdadero Gamer</a>

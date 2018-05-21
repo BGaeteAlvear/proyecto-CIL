@@ -5,9 +5,13 @@ Route::get('/', function () {
     if (Auth::check()) {
         return redirect('/dashboard');
     }
+    /*return redirect('/login');*/
     return view('welcome');
 })->name('home');
 
+// register
+Route::get('/register', 'RegisterController@register')->name('register');
+Auth::routes();
 // login y asociados GUEST
 Route::get('/login', 'LoginController@showLogin')->name('login.show');
 Route::post('/login', 'LoginController@login')->name('login');

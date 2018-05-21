@@ -27,7 +27,9 @@
 <body class="BEGAMES-bg-style">
 <div class="login-boxer">
     <div class="text-center">
-        <img src="#" alt="BEGAMES" width="70%">
+        <a href="/">
+             <img src="{{ url('assets/images/logo.png') }}" alt="BEGAMES" width="70%">
+        </a>
     </div>
     <div class="login-box">
         <div class="row">
