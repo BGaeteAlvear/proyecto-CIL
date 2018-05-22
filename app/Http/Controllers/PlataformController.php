@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\CrudHelper\ControllerCrud;
-use App\Model\GameType;
+use App\Model\Plataform;
 
-class GameTypesController extends ControllerCrud
+class PlataformController extends ControllerCrud
 {
     public function __construct()
     {
-        parent::__construct(GameType::class);
-        parent::setIndexPage('sections.config.game-types');
+        parent::__construct(Plataform::class);
+        parent::setIndexPage('sections.config.plataforms');
         //validate store
         parent::setValidationStore([
             'name' => 'required|max:50|min:1'

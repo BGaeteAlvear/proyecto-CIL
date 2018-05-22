@@ -15,6 +15,8 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
+            $table->double('aumount');
+            $table->double('iva');
             $table->timestamps();
         });
     }

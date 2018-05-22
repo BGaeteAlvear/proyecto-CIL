@@ -15,6 +15,9 @@ class CreatePlataformsTable extends Migration
     {
         Schema::create('plataforms', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name',50);
+            $table->text('description')->nullable();
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }

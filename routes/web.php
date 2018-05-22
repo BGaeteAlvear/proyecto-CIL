@@ -5,13 +5,11 @@ Route::get('/', function () {
     if (Auth::check()) {
         return redirect('/dashboard');
     }
-    /*return redirect('/login');*/
-    return view('welcome');
+    return redirect('/login');
 })->name('home');
 
-// register
-Route::get('/register', 'RegisterController@register')->name('register');
-Auth::routes();
+///  index
+
 // login y asociados GUEST
 Route::get('/login', 'LoginController@showLogin')->name('login.show');
 Route::post('/login', 'LoginController@login')->name('login');
@@ -30,13 +28,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/nodes-statuses','DashboardController@getNodesStatuses')->name('dashboard.get-nodes-statuses');
 
     // pefil de usuario
+    // pefil de usuario
     Route::prefix('profile')->group(function () {
 
         Route::get('/', 'UserController@getProfile')->name('profile');
         Route::post('update-profile', 'ProfileController@updateProfile')->name('update-profile');
         Route::post('change-password', 'ProfileController@changePassword')->name('change-password');
     });
-
     //ADMIN
     //gestion de usuarios
     Route::middleware('admin')->group(function () {
@@ -50,6 +48,35 @@ Route::middleware('auth')->group(function () {
             Route::post('/change-status', 'UserController@changeStatus')->name('management.users.change-status');
             Route::post('/destroy', 'UserController@destroy')->name('management.users.destroy');
         });
+
+        Route::prefix('config')->group(function () {
+            Route::prefix('categories')->group(function () {
+                Route::get('/', 'CategoryController@index')->name('categories');
+                Route::get('/all', 'CategoryController@getAll')->name('categories.all');
+                Route::post('/store', 'CategoryController@store')->name('categories.store');
+                Route::post('/update', 'CategoryController@update')->name('categories.update');
+                Route::post('/change-status', 'CategoryController@changeStatus')->name('categories.change-status');
+                Route::post('/destroy', 'CategoryController@destroy')->name('categories.destroy');
+            });
+
+            Route::prefix('plataforms')->group(function () {
+                Route::get('/', 'PlataformController@index')->name('plataforms');
+                Route::get('/all', 'PlataformController@getAll')->name('plataforms.all');
+                Route::post('/store', 'PlataformController@store')->name('plataforms.store');
+                Route::post('/update', 'PlataformController@update')->name('plataforms.update');
+                Route::post('/change-status', 'PlataformController@changeStatus')->name('plataforms.change-status');
+                Route::post('/destroy', 'PlataformController@destroy')->name('plataforms.destroy');
+            });
+
+            Route::prefix('game-types')->group(function () {
+                Route::get('/', 'GameTypesController@index')->name('game-types');
+                Route::get('/all', 'GameTypesController@getAll')->name('game-types.all');
+                Route::post('/store', 'GameTypesController@store')->name('game-types.store');
+                Route::post('/update', 'GameTypesController@update')->name('game-types.update');
+                Route::post('/change-status', 'GameTypesController@changeStatus')->name('game-types.change-status');
+                Route::post('/destroy', 'GameTypesController@destroy')->name('game-types.destroy');
+            });
+         });
 
         Route::prefix('management-games')->group(function () {
             Route::get('/', 'GameController@index')->name('management.games');

@@ -1,8 +1,37 @@
+
 <li {{ (Request::is('management-users') ? 'class=active' : '') }}>
     <a href="{{ route('management.users') }}">
         <i class="fa fa-users"></i>
         <span>Gestión de Usuarios</span>
     </a>
+</li>
+<li class="treeview {{ (Request::is('config/*') ? 'active' : '') }}">
+    <a href="#">
+        <i class="fa fa-gears"></i> <span>Gestión y Configuración</span>
+        <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+    </a>
+    <ul class="treeview-menu">
+        <li {{ (Request::is('config/categories') ? 'class=active' : '') }} >
+            <a href="{{ route('categories') }}">
+                <i class="fa fa-angle-right"></i>
+                Categorías de Juegos
+            </a>
+        </li>
+        <li {{ (Request::is('config/plataforms') ? 'class=active' : '') }} >
+            <a href="{{ route('plataforms') }}">
+                <i class="fa fa-angle-right"></i>
+                Plataformas
+            </a>
+        </li>
+        <li {{ (Request::is('config/game-types') ? 'class=active' : '') }} >
+            <a href="{{ route('game-types') }}">
+                <i class="fa fa-angle-right"></i>
+                Tipos de Juegos
+            </a>
+        </li>
+    </ul>
 </li>
 <li {{ (Request::is('management-games') ? 'class=active' : '') }}>
     <a href="{{ route('management.games') }}">
