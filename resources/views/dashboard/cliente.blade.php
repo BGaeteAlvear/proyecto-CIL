@@ -97,12 +97,78 @@
             </div>
             <div class="tab-pane" id="3">
               <h3>SWITCH GAMES</h3>
+               <div id="bloque" >
+                  <div class="A"> 
+                  <p>Hyrule Warriors</p>
+                  <img src="{{ url('assets/images/juegos/ZeldaSW.png') }}">
+                  <p>$44.990</p>
+                  </div>
+                   <div class="A"> 
+                  <p>Donkey Kong Country: Tropical</p>
+                  <img src="{{ url('assets/images/juegos/SW_02.png') }}">
+                  <p>$44.990</p>
+                  </div>
+                   <div class="A"> 
+                  <p>Mega Man Legacy Collection</p>
+                  <img src="{{ url('assets/images/juegos/SW_03.png') }}">
+                  <p>$34.990</p>
+                  </div>
+                   <div class="A"> 
+                  <p>Super Smash Bros</p>
+                  <img src="{{ url('assets/images/juegos/SW_04.png') }}">
+                  <p>$44.990</p>
+                  </div>
+               </div>
             </div>
             <div class="tab-pane" id="4">
               <h3>3DS GAMES</h3>
+               <div id="bloque" >
+                  <div class="A"> 
+                  <p>Dragon Ball Fighter Z</p>
+                  <img src="{{ url('assets/images/juegos/DBZXbox.png') }}">
+                  <p>$39.990</p>
+                  </div>
+                   <div class="A"> 
+                  <p>Far Cry 5</p>
+                  <img src="{{ url('assets/images/juegos/FarCryXbox.png') }}">
+                  <p>$54.990</p>
+                  </div>
+                   <div class="A"> 
+                  <p>State of Decay 2</p>
+                  <img src="{{ url('assets/images/juegos/StateXbox.png') }}">
+                  <p>$24.990</p>
+                  </div>
+                   <div class="A"> 
+                  <p>Lords of the Fallen</p>
+                  <img src="{{ url('assets/images/juegos/LordXbox.png') }}">
+                  <p>$5.990</p>
+                  </div>
+               </div>
             </div>
             <div class="tab-pane" id="5">
               <h3>PC GAMES</h3>
+               <div id="bloque" >
+                  <div class="A"> 
+                  <p>Donkey Kong Country: Tropical</p>
+                  <img src="{{ url('assets/images/juegos/SW_02.png') }}">
+                  <p>$44.990</p>
+                  </div>
+                   <div class="A"> 
+                  <p>Far Cry 5</p>
+                  <img src="{{ url('assets/images/juegos/FarCryXbox.png') }}">
+                  <p>$54.990</p>
+                  </div>
+                   <div class="A"> 
+                  <p>State of Decay 2</p>
+                  <img src="{{ url('assets/images/juegos/StateXbox.png') }}">
+                  <p>$24.990</p>
+                  </div>
+                   <div class="A"> 
+                  <p>Lords of the Fallen</p>
+                  <img src="{{ url('assets/images/juegos/LordXbox.png') }}">
+                  <p>$5.990</p>
+                  </div>
+               </div>
             </div>
       </div>
 
