@@ -71,7 +71,7 @@
                 <li class="header">MENÚ PRINCIPAL</li>
                 <li {{ (Request::is('dashboard') ? 'class=active' : '') }} >
                     <a href="{{ route('dashboard') }}">
-                        <i class="fa fa-th"></i> <span>Dashboard</span>
+                        <i class="fa fa-th"></i> <span>Inicio</span>
                     </a>
                 </li>
 
@@ -115,6 +115,7 @@
                 @yield('breadcrumb')
             </ol>
         </section>
+
         <section class="content">
             <div class="row">
                 <div class="col-md-12">

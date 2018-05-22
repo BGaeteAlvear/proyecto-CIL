@@ -104,12 +104,12 @@
                   <p>$44.990</p>
                   </div>
                    <div class="A"> 
-                  <p>Donkey Kong Country: Tropical</p>
+                  <p>Donkey Kong Country</p>
                   <img src="{{ url('assets/images/juegos/SW_02.png') }}">
                   <p>$44.990</p>
                   </div>
                    <div class="A"> 
-                  <p>Mega Man Legacy Collection</p>
+                  <p>Mega Man Legacy </p>
                   <img src="{{ url('assets/images/juegos/SW_03.png') }}">
                   <p>$34.990</p>
                   </div>
