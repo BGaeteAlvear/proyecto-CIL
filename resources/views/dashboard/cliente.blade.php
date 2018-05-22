@@ -124,24 +124,24 @@
               <h3>3DS GAMES</h3>
                <div id="bloque" >
                   <div class="A"> 
-                  <p>Dragon Ball Fighter Z</p>
-                  <img src="{{ url('assets/images/juegos/DBZXbox.png') }}">
+                  <p>The Alliance Alive</p>
+                  <img src="{{ url('assets/images/juegos/NDS.png') }}">
                   <p>$39.990</p>
                   </div>
                    <div class="A"> 
-                  <p>Far Cry 5</p>
-                  <img src="{{ url('assets/images/juegos/FarCryXbox.png') }}">
-                  <p>$54.990</p>
+                  <p>Detective Pikachu</p>
+                  <img src="{{ url('assets/images/juegos/NDS_02.png') }}">
+                  <p>$36.990</p>
                   </div>
                    <div class="A"> 
-                  <p>State of Decay 2</p>
-                  <img src="{{ url('assets/images/juegos/StateXbox.png') }}">
-                  <p>$24.990</p>
+                  <p>Super Mario 3D Land</p>
+                  <img src="{{ url('assets/images/juegos/NDS_03.png') }}">
+                  <p>$19.990</p>
                   </div>
                    <div class="A"> 
-                  <p>Lords of the Fallen</p>
-                  <img src="{{ url('assets/images/juegos/LordXbox.png') }}">
-                  <p>$5.990</p>
+                  <p>A Link Between Worlds</p>
+                  <img src="{{ url('assets/images/juegos/NDS_04.png') }}">
+                  <p>$19.990</p>
                   </div>
                </div>
             </div>
