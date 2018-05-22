@@ -107,8 +107,8 @@
 
         <section class="content-header">
             <h1>
-                @yield('content-title', 'Nueva Página')
-                <small> @yield('content-subtitle', 'Nueva Página')</small>
+                @yield('content-title', '')
+                <small> @yield('content-subtitle', '')</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>

@@ -35,7 +35,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/', 'UserController@getProfile')->name('profile');
         Route::post('update-profile', 'ProfileController@updateProfile')->name('update-profile');
         Route::post('change-password', 'ProfileController@changePassword')->name('change-password');
-    });
+
+        });
+        
 
     //ADMIN
     //gestion de usuarios
@@ -49,9 +51,9 @@ Route::middleware('auth')->group(function () {
             Route::post('/update', 'UserController@update')->name('management.users.update');
             Route::post('/change-status', 'UserController@changeStatus')->name('management.users.change-status');
             Route::post('/destroy', 'UserController@destroy')->name('management.users.destroy');
-        });
+            });
 
-        Route::prefix('management-games')->group(function () {
+            Route::prefix('management-games')->group(function () {
             Route::get('/', 'GameController@index')->name('management.games');
         });
 

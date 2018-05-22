@@ -17,6 +17,11 @@ class GameController extends Controller
         return view('sections.management.games.index');
     }
 
+    public function viewGames(Request $request)
+    {
+        $request->$id
+    }
+
     /**
      * Show the form for creating a new resource.
      *
