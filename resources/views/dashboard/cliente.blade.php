@@ -149,24 +149,24 @@
               <h3>PC GAMES</h3>
                <div id="bloque" >
                   <div class="A"> 
-                  <p>Donkey Kong Country: Tropical</p>
-                  <img src="{{ url('assets/images/juegos/SW_02.png') }}">
-                  <p>$44.990</p>
+                  <p>Guild Wars 2: Path of Fire </p>
+                  <img src="{{ url('assets/images/juegos/GWPc.png') }}">
+                  <p>$19.990</p>
                   </div>
                    <div class="A"> 
-                  <p>Far Cry 5</p>
-                  <img src="{{ url('assets/images/juegos/FarCryXbox.png') }}">
-                  <p>$54.990</p>
+                  <p>Overwatch Origins</p>
+                  <img src="{{ url('assets/images/juegos/PC_02.png') }}">
+                  <p>$19.990</p>
                   </div>
                    <div class="A"> 
-                  <p>State of Decay 2</p>
-                  <img src="{{ url('assets/images/juegos/StateXbox.png') }}">
+                  <p>Diablo III Battlechest </p>
+                  <img src="{{ url('assets/images/juegos/PC_03.png') }}">
+                  <p>$19.990</p>
+                  </div>
+                   <div class="A"> 
+                  <p>Starcraft II Battlechest</p>
+                  <img src="{{ url('assets/images/juegos/PC_04.png') }}">
                   <p>$24.990</p>
-                  </div>
-                   <div class="A"> 
-                  <p>Lords of the Fallen</p>
-                  <img src="{{ url('assets/images/juegos/LordXbox.png') }}">
-                  <p>$5.990</p>
                   </div>
                </div>
             </div>
