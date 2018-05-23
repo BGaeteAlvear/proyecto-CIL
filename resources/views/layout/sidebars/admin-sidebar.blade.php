@@ -31,6 +31,12 @@
                 Tipos de Juegos
             </a>
         </li>
+        <li {{ (Request::is('config/companies') ? 'class=active' : '') }} >
+            <a href="{{ route('companies') }}">
+                <i class="fa fa-angle-right"></i>
+                Compañias de Juegos
+            </a>
+        </li>
     </ul>
 </li>
 <li {{ (Request::is('management-games') ? 'class=active' : '') }}>

@@ -5,11 +5,12 @@ Route::get('/', function () {
     if (Auth::check()) {
         return redirect('/dashboard');
     }
-    return redirect('/login');
+    return view('welcome');
 })->name('home');
 
 ///  index
-
+Route::get('/register', 'RegisterController@register')->name('register');
+Auth::routes(); 
 // login y asociados GUEST
 Route::get('/login', 'LoginController@showLogin')->name('login.show');
 Route::post('/login', 'LoginController@login')->name('login');
@@ -76,6 +77,15 @@ Route::middleware('auth')->group(function () {
                 Route::post('/update', 'GameTypesController@update')->name('game-types.update');
                 Route::post('/change-status', 'GameTypesController@changeStatus')->name('game-types.change-status');
                 Route::post('/destroy', 'GameTypesController@destroy')->name('game-types.destroy');
+            });
+
+            Route::prefix('companies')->group(function () {
+                Route::get('/', 'CompaniesController@index')->name('companies');
+                Route::get('/all', 'CompaniesController@getAll')->name('companies.all');
+                Route::post('/store', 'CompaniesController@store')->name('companies.store');
+                Route::post('/update', 'CompaniesController@update')->name('companies.update');
+                Route::post('/change-status', 'CompaniesController@changeStatus')->name('companies.change-status');
+                Route::post('/destroy', 'CompaniesController@destroy')->name('companies.destroy');
             });
          });
 

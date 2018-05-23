@@ -18,6 +18,7 @@ class CreateCompaniesTable extends Migration
             $table->string('name',50);
             $table->string('web',150);
             $table->text('description')->nullable();
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }

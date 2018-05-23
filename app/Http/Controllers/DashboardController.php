@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\User;
+use App\Model\Plataform;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -43,7 +44,7 @@ class DashboardController extends Controller
     {
         return view('dashboard.admin');
 
-    }    
+    }
 
     private function renderCajeroDashboard()
     {
@@ -52,7 +53,8 @@ class DashboardController extends Controller
 
     private function renderClienteDashboard()
     {
-        return view('dashboard.cliente');
+        $plataforms = Plataform::all();
+        return view('dashboard.cliente')->with('plataforms', $plataforms);
     }
 
 }
