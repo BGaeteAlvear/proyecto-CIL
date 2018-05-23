@@ -71,7 +71,7 @@
                 <li class="header">MENÚ PRINCIPAL</li>
                 <li {{ (Request::is('dashboard') ? 'class=active' : '') }} >
                     <a href="{{ route('dashboard') }}">
-                        <i class="fa fa-th"></i> <span>Dashboard</span>
+                        <i class="fa fa-th"></i> <span>Inicio</span>
                     </a>
                 </li>
 
@@ -107,14 +107,15 @@
 
         <section class="content-header">
             <h1>
-                @yield('content-title', 'Nueva Página')
-                <small> @yield('content-subtitle', 'Nueva Página')</small>
+                @yield('content-title', '')
+                <small> @yield('content-subtitle', '')</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
                 @yield('breadcrumb')
             </ol>
         </section>
+
         <section class="content">
             <div class="row">
                 <div class="col-md-12">

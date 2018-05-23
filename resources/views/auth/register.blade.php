@@ -15,12 +15,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="BEGAMES-bg-style">
-<div class="login-boxer">
-    <div class="text-center">
-        <a href="/">
-             <img src="{{ url('assets/images/logo.png') }}" alt="BEGAMES" width="70%">
-        </a>
-    </div>
+<div class="text-center col-md-12">
+    <a href="/">
+        <img src="{{ url('assets/images/logo2.png') }}" alt="BEGAMES" class="img-fluid" style="max-width: 100%;height: auto">
+    </a>
+</div>
+<div class="login-box">
     <div class="login-box">
         <div class="row">
             <div class="col-md-12">
