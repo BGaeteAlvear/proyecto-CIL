@@ -2,11 +2,11 @@
 
 @section('content-title', 'Configuración')
 
-@section('content-subtitle', 'Compañias de Juegos')
+@section('content-subtitle', 'Juegos')
 
 @section('breadcrumb')
     <li>Configuración</li>
-    <li class="active">Compañias de Juegos</li>
+    <li class="active">Juegos</li>
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
                 <div class="box-body">
                     <div id="toolbar" class="btn-group">
                         <button data-toggle="modal" data-target="#modal-create" class="btn btn-success"><i
-                                    class="fa fa-plus"></i> Nueva Compañia
+                                    class="fa fa-plus"></i> Nuevo Juego
                         </button>
                     </div>
                     <table
@@ -44,6 +44,7 @@
                             <th data-field="status" data-checkbox="true" data-tableexport-display="none"></th>
                             <th data-field="id" data-sortable="true">ID</th>
                             <th data-field="name" data-cell-style="cellStyle" data-sortable="true">Nombre</th>
+                            <th data-field="web" data-sortable="true">Link descarga</th>
                             <th data-field="description" data-sortable="true">Descripción</th>
                             <th data-field="created_at" data-cell-style="cellStyle" data-align="center" data-sortable="true" data-formatter="dateFormat" >Creado</th>
                             <th data-field="updated_at" data-cell-style="cellStyle" data-align="center" data-sortable="true" data-formatter="dateFormat" data-sorteable="true" >Modificado</th>
@@ -59,18 +60,18 @@
 
     <!--modal create-->
     <div class="modal fade in" id="modal-create">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <form method="post" id="form-create">
                 {{ csrf_field() }}
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" onclick="dissmisModal('#form-create','#modal-create')" aria-label="Close">
                             <span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">Nueva Compañia</h4>
+                        <h4 class="modal-title">Nuevo Juego </h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div id="group-error-name-create" class="form-group">
                                     <label class="control-label " for="name">
                                         Nombre
@@ -80,13 +81,33 @@
                                     <span id="error-name-create" class="help-block"></span>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="form-group col-md-6" id="group-error-role-create">
+                                <label for="role_id">Compañia</label>
+                                <select class="form-control" onchange="removeErrors();" id="company_id" name="company_id">
+                                    <option selected disabled value="">Seleccione</option>
+                                    @foreach($companies as $company)
+                                        <option value="{{$company->id}}" >{{$company->name}}</option>
+                                    @endforeach
+                                </select>
+                                <span class="help-block" id="label-error-role-create"></span>
+                            </div>
+                            <div class="col-md-6">
                                 <div id="group-error-web-create" class="form-group">
-                                    <label class="control-label " for="name">
-                                        Web
+                                    <label class="control-label" for="classification">
+                                        Clasificación
+                                    </label>
+                                    <input class="form-control" type="url" id="classification" name="classification"
+                                           placeholder="Ingrese pagina web" >
+                                    <span id="error-web-create" class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="group-error-web-create" class="form-group">
+                                    <label class="control-label" for="web">
+                                        Link Descarga
                                     </label>
                                     <input class="form-control" type="url" id="web" name="web"
-                                           placeholder="Ingrese la web de la compañias">
+                                           placeholder="Ingrese pagina web" >
                                     <span id="error-web-create" class="help-block"></span>
                                 </div>
                             </div>
@@ -121,7 +142,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" onclick="dissmisModal('#form-edit','#modal-edit')" aria-label="Close">
                             <span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">Editar Compañia</h4>
+                        <h4 class="modal-title">Editar Juego </h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -137,11 +158,11 @@
                             </div>
                             <div class="col-md-12">
                                 <div id="group-error-web-edit" class="form-group">
-                                    <label class="control-label " for="name">
-                                        Web
+                                    <label class="control-label" for="web">
+                                        Página Web
                                     </label>
                                     <input class="form-control" type="url" id="web" name="web"
-                                           placeholder="Ingrese la web de la compañias">
+                                           placeholder="Ingrese pagina web" >
                                     <span id="error-web-edit" class="help-block"></span>
                                 </div>
                             </div>
@@ -193,7 +214,7 @@
             $.ajax({
                 type: "GET",
                 contentType : "application/json",
-                url: "{{ route('companies.all') }}",
+                url: "{{ route('games.all') }}",
                 success: function(data) {
                     params.success(data);
                     items = data;
@@ -210,6 +231,7 @@
             var titles = [
                 {id: 'id', name: 'Id'},
                 {id: 'name', name: 'Nombre'},
+                {id: 'web', name: 'Página Web'},
                 {id: 'description', name: 'Descripción'},
                 {id: 'created_at', name: 'Creado'},
                 {id: 'updated_at', name: 'Modificado'},
@@ -274,7 +296,7 @@
                 row: {
                     id: entity.id,
                     name: entity.name,
-                    name: entity.web,
+                    web : entity.web,
                     description : entity.description,
                     active : entity.active,
                     created_at : entity.created_at,
@@ -295,7 +317,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'post',
-                    url: '{{route('companies.store')}}',
+                    url: '{{route('games.store')}}',
                     data: dataForm,
                     success: function (data) {
 
@@ -354,6 +376,14 @@
             }
         });
 
+
+        // limpia el campo de error cuando se escribe denuevo edit
+        $('#form-edit').find('#web').keyup(function () {
+            if($('#form-edit').find('#web').val().length > 1){
+                hideInputError('#error-web-edit','#group-error-web-edit');
+            }
+        });
+
         // limpiar input formularion crear
         function clearInputs(form){
             $(form).trigger('reset');
@@ -379,6 +409,7 @@
         function removeHasErrors() {
             hideInputError('#error-name-create','#group-error-name-create');
             hideInputError('#error-name-edit','#group-error-name-edit');
+            hideInputError('#error-web-edit','#group-error-web-edit');
         }
 
         // funcion de editar
@@ -389,7 +420,7 @@
 
                 var dataForm = $('#form-edit').serialize();
                 e.preventDefault();
-                var url = '{{route('companies.update')}}';
+                var url = '{{route('games.update')}}';
                 $.ajax({
                     type: 'POST',
                     url: url,
@@ -458,7 +489,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '{{route('companies.change-status')}}',
+                url: '{{route('games.change-status')}}',
                 data: {
                     _token : '{{ csrf_token() }}',
                     id : item.id,
@@ -503,7 +534,7 @@
 
                 if (result.value) {
 
-                    var url = '{{route('companies.destroy')}}';
+                    var url = '{{route('games.destroy')}}';
                     $.ajax({
                         type: 'POST',
                         url: url,

@@ -20,6 +20,8 @@ class CreateShippingMethodsTable extends Migration
             $table->boolean('active')->default(1);
             $table->timestamps();
         });
+
+        
     }
 
     /**

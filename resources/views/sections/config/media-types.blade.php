@@ -2,11 +2,11 @@
 
 @section('content-title', 'Configuración')
 
-@section('content-subtitle', 'Compañias de Juegos')
+@section('content-subtitle', 'Tipos de Recursos Media')
 
 @section('breadcrumb')
     <li>Configuración</li>
-    <li class="active">Compañias de Juegos</li>
+    <li class="active">Tipos de Recursos Media</li>
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
                 <div class="box-body">
                     <div id="toolbar" class="btn-group">
                         <button data-toggle="modal" data-target="#modal-create" class="btn btn-success"><i
-                                    class="fa fa-plus"></i> Nueva Compañia
+                                    class="fa fa-plus"></i> Nuevo Tipo de Media
                         </button>
                     </div>
                     <table
@@ -66,7 +66,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" onclick="dissmisModal('#form-create','#modal-create')" aria-label="Close">
                             <span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">Nueva Compañia</h4>
+                        <h4 class="modal-title">Nuevo Tipo de Media</h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -78,16 +78,6 @@
                                     <input class="form-control" type="text" id="name" name="name"
                                            placeholder="Ingrese un nombre.">
                                     <span id="error-name-create" class="help-block"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div id="group-error-web-create" class="form-group">
-                                    <label class="control-label " for="name">
-                                        Web
-                                    </label>
-                                    <input class="form-control" type="url" id="web" name="web"
-                                           placeholder="Ingrese la web de la compañias">
-                                    <span id="error-web-create" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -121,7 +111,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" onclick="dissmisModal('#form-edit','#modal-edit')" aria-label="Close">
                             <span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">Editar Compañia</h4>
+                        <h4 class="modal-title">Editar Tipo de Media</h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -133,16 +123,6 @@
                                     <input class="form-control" type="text" id="name" name="name"
                                            placeholder="Ingrese un nombre." >
                                     <span id="error-name-edit" class="help-block"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div id="group-error-web-edit" class="form-group">
-                                    <label class="control-label " for="name">
-                                        Web
-                                    </label>
-                                    <input class="form-control" type="url" id="web" name="web"
-                                           placeholder="Ingrese la web de la compañias">
-                                    <span id="error-web-edit" class="help-block"></span>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -193,7 +173,7 @@
             $.ajax({
                 type: "GET",
                 contentType : "application/json",
-                url: "{{ route('companies.all') }}",
+                url: "{{ route('media-types.all') }}",
                 success: function(data) {
                     params.success(data);
                     items = data;
@@ -274,7 +254,6 @@
                 row: {
                     id: entity.id,
                     name: entity.name,
-                    name: entity.web,
                     description : entity.description,
                     active : entity.active,
                     created_at : entity.created_at,
@@ -295,7 +274,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'post',
-                    url: '{{route('companies.store')}}',
+                    url: '{{route('media-types.store')}}',
                     data: dataForm,
                     success: function (data) {
 
@@ -389,7 +368,7 @@
 
                 var dataForm = $('#form-edit').serialize();
                 e.preventDefault();
-                var url = '{{route('companies.update')}}';
+                var url = '{{route('media-types.update')}}';
                 $.ajax({
                     type: 'POST',
                     url: url,
@@ -433,7 +412,6 @@
                 showModal('#modal-edit');
             $('#form-edit').find('#id-edit').val(item.id);
             $('#form-edit').find('#name').val(item.name);
-            $('#form-edit').find('#web').val(item.web);
             $('#form-edit').find('#description').val(item.description);
 
 
@@ -458,7 +436,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '{{route('companies.change-status')}}',
+                url: '{{route('media-types.change-status')}}',
                 data: {
                     _token : '{{ csrf_token() }}',
                     id : item.id,
@@ -503,7 +481,7 @@
 
                 if (result.value) {
 
-                    var url = '{{route('companies.destroy')}}';
+                    var url = '{{route('media-types.destroy')}}';
                     $.ajax({
                         type: 'POST',
                         url: url,

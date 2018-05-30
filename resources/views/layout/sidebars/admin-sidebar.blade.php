@@ -37,6 +37,18 @@
                 Compañias de Juegos
             </a>
         </li>
+        <li {{ (Request::is('config/media-types') ? 'class=active' : '') }} >
+            <a href="{{ route('media-types') }}">
+                <i class="fa fa-angle-right"></i>
+                Tipos de Recuros Media
+            </a>
+        </li>
+        <li {{ (Request::is('config/games') ? 'class=active' : '') }} >
+            <a href="{{ route('games') }}">
+                <i class="fa fa-angle-right"></i>
+                Juegos
+            </a>
+        </li>
     </ul>
 </li>
 <li {{ (Request::is('management-games') ? 'class=active' : '') }}>

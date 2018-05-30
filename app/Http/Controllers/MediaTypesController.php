@@ -2,84 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\MediaTypes;
-use Illuminate\Http\Request;
+use App\Http\Controllers\CrudHelper\ControllerCrud;
+use App\Model\MediaType;
 
-class MediaTypesController extends Controller
+class MediaTypesController extends ControllerCrud
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct()
     {
-        //
+        parent::__construct(MediaType::class);
+        parent::setIndexPage('sections.config.media-types');
+        //validate store
+        parent::setValidationStore([
+            'name' => 'required|max:50|min:1'
+        ]);
+        //validate update
+        parent::setValidationUpdate([
+            'name' => 'required|max:50|min:1'
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\MediaTypes  $mediaTypes
-     * @return \Illuminate\Http\Response
-     */
-    public function show(MediaTypes $mediaTypes)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\MediaTypes  $mediaTypes
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(MediaTypes $mediaTypes)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\MediaTypes  $mediaTypes
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, MediaTypes $mediaTypes)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\MediaTypes  $mediaTypes
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(MediaTypes $mediaTypes)
-    {
-        //
-    }
 }

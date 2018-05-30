@@ -2,85 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Game;
+use App\Http\Controllers\CrudHelper\ControllerCrud;
 use Illuminate\Http\Request;
+use App\Model\Game;
+use App\Model\Company;
 
-class GameController extends Controller
+class GameController extends ControllerCrud
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('sections.management.games.index');
+        $companies = Company::all();
+        return view('sections.config.games')->with(['companies' => $companies]);
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function __construct()
     {
-        //
+        parent::__construct(Game::class);
+        $companies = Company::all();
+        parent::setIndexPage('');
+        //validate store
+        parent::setValidationStore([
+            'name' => 'required|max:50|min:1',
+            'clasification' => 'required|max:50|min:1',
+            'description' => 'required|max:50|min:1',
+            'link' => 'url',
+            'price' => 'required|numeric|max:50|min:1',
+            'stock' => 'required|numeric|max:50|min:1',
+        ]);
+        //validate update
+        parent::setValidationUpdate([
+            'name' => 'required|max:50|min:1',
+            'clasification' => 'required|max:50|min:1',
+            'description' => 'required|max:50|min:1',
+            'link' => 'url',
+            'price' => 'required|numeric|max:50|min:1',
+            'stock' => 'required|numeric|max:50|min:1',
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\Game  $game
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Game $game)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\Game  $game
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Game $game)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Game  $game
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Game $game)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\Game  $game
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Game $game)
-    {
-        //
-    }
 }

@@ -10,7 +10,7 @@ Route::get('/', function () {
 
 ///  index
 Route::get('/register', 'RegisterController@register')->name('register');
-Auth::routes(); 
+Auth::routes();
 // login y asociados GUEST
 Route::get('/login', 'LoginController@showLogin')->name('login.show');
 Route::post('/login', 'LoginController@login')->name('login');
@@ -86,6 +86,24 @@ Route::middleware('auth')->group(function () {
                 Route::post('/update', 'CompaniesController@update')->name('companies.update');
                 Route::post('/change-status', 'CompaniesController@changeStatus')->name('companies.change-status');
                 Route::post('/destroy', 'CompaniesController@destroy')->name('companies.destroy');
+            });
+
+            Route::prefix('media-types')->group(function () {
+                Route::get('/', 'MediaTypesController@index')->name('media-types');
+                Route::get('/all', 'MediaTypesController@getAll')->name('media-types.all');
+                Route::post('/store', 'MediaTypesController@store')->name('media-types.store');
+                Route::post('/update', 'MediaTypesController@update')->name('media-types.update');
+                Route::post('/change-status', 'MediaTypesController@changeStatus')->name('media-types.change-status');
+                Route::post('/destroy', 'MediaTypesController@destroy')->name('media-types.destroy');
+            });
+
+            Route::prefix('games')->group(function () {
+                Route::get('/', 'GameController@index')->name('games');
+                Route::get('/all', 'GameController@getAll')->name('games.all');
+                Route::post('/store', 'GameController@store')->name('games.store');
+                Route::post('/update', 'GameController@update')->name('games.update');
+                Route::post('/change-status', 'GameController@changeStatus')->name('games.change-status');
+                Route::post('/destroy', 'GameController@destroy')->name('games.destroy');
             });
          });
 

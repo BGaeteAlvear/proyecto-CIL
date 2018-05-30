@@ -19,6 +19,7 @@ class CreateGamesTable extends Migration
             $table->string('clasification',25)->nullable();
             $table->double('ranking');
             $table->string('levels',255)->nullable();
+            //$table->boolean('type_game'); //1 fisico 2/web
             $table->text('description');
             $table->text('link')->nullable();
             $table->double('price')->nullable();
