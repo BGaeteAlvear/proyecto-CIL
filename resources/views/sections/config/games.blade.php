@@ -44,7 +44,7 @@
                             <th data-field="status" data-checkbox="true" data-tableexport-display="none"></th>
                             <th data-field="id" data-sortable="true">ID</th>
                             <th data-field="name" data-cell-style="cellStyle" data-sortable="true">Nombre</th>
-                            <th data-field="web" data-sortable="true">Link descarga</th>
+                            <th data-field="companies.name" data-sortable="true">Compañia</th>
                             <th data-field="description" data-sortable="true">Descripción</th>
                             <th data-field="created_at" data-cell-style="cellStyle" data-align="center" data-sortable="true" data-formatter="dateFormat" >Creado</th>
                             <th data-field="updated_at" data-cell-style="cellStyle" data-align="center" data-sortable="true" data-formatter="dateFormat" data-sorteable="true" >Modificado</th>
@@ -61,7 +61,7 @@
     <!--modal create-->
     <div class="modal fade in" id="modal-create">
         <div class="modal-dialog modal-lg">
-            <form method="post" id="form-create">
+            <form method="post" id="form-create" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="modal-content">
                     <div class="modal-header">
@@ -72,53 +72,111 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6">
+                                <div class="form-group col-md-12" id="group-error-cover-create">
+                                    <label for="cover">Caratula del Juego</label>
+                                    <div class="image-cover">
+                                        <img id="image-cover" class="img-thumbnail" height="370px" width="100%" src="{{ Storage::url('covers/cover-default.png') }}">
+                                    </div>
+                                    <input type="file" name="cover" id="file"
+                                           class="inputfile" accept="image/x-png,image/gif,image/jpeg"/>
+                                    <label for="file">Seleccione Caratula del Juego</label>
+                                    <span class="help-block" id="label-error-cover-create"></span>
+                                    <div class="link-del" onclick="deleteAvatarCreate();"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div id="group-error-name-create" class="form-group">
                                     <label class="control-label " for="name">
                                         Nombre
                                     </label>
                                     <input class="form-control" type="text" id="name" name="name"
                                            placeholder="Ingrese un nombre.">
-                                    <span id="error-name-create" class="help-block"></span>
+                                    <span id="label-error-name-create" class="help-block"></span>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6" id="group-error-role-create">
+                            <div class="form-group col-md-6" id="group-error-companies_id-create">
                                 <label for="role_id">Compañia</label>
-                                <select class="form-control" onchange="removeErrors();" id="company_id" name="company_id">
+                                <select class="form-control"  id="company_id" name="companies_id">
                                     <option selected disabled value="">Seleccione</option>
                                     @foreach($companies as $company)
                                         <option value="{{$company->id}}" >{{$company->name}}</option>
                                     @endforeach
                                 </select>
-                                <span class="help-block" id="label-error-role-create"></span>
+                                <span class="help-block" id="label-error-companies_id-create"></span>
                             </div>
-                            <div class="col-md-6">
-                                <div id="group-error-web-create" class="form-group">
-                                    <label class="control-label" for="classification">
-                                        Clasificación
-                                    </label>
-                                    <input class="form-control" type="url" id="classification" name="classification"
-                                           placeholder="Ingrese pagina web" >
-                                    <span id="error-web-create" class="help-block"></span>
-                                </div>
+                            <div class="form-group col-md-6" id="group-error-plataforms_id-create">
+                                <label for="role_id">Plataforma</label>
+                                <select class="form-control" id="plataform_id" name="plataforms_id">
+                                    <option selected disabled value="">Seleccione</option>
+                                    @foreach($plataforms as $plataform)
+                                        <option value="{{$plataform->id}}" >{{$plataform->name}}</option>
+                                    @endforeach
+                                </select>
+                                <span class="help-block" id="label-error-plataforms_id-create"></span>
                             </div>
-                            <div class="col-md-6">
-                                <div id="group-error-web-create" class="form-group">
+                            <div class="form-group col-md-6" id="group-error-game_types_id-create">
+                                <label for="role_id">Tipo de Juego</label>
+                                <select class="form-control" id="game_types_id" name="game_types_id">
+                                    <option selected disabled value="">Seleccione</option>
+                                    @foreach($game_types as $game_type)
+                                        <option value="{{$game_type->id}}" >{{$game_type->name}}</option>
+                                    @endforeach
+                                </select>
+                                <span class="help-block" id="label-error-game_types_id-create"></span>
+                            </div>
+                            <div class="form-group col-md-6" id="group-error-categories_id-create">
+                                <label for="role_id">Categoría</label>
+                                <select class="form-control" id="categories_id" name="categories_id">
+                                    <option selected disabled value="">Seleccione</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}" >{{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                                <span class="help-block" id="label-error-categories_id-create"></span>
+                            </div>
+                            <div class="form-group col-md-6" id="group-error-clasification-create">
+                                <label class="control-label" for="clasification">
+                                    Clasificación
+                                </label>
+                                <input class="form-control" type="text" id="clasification" name="clasification"
+                                       placeholder="Ingrese clasificación" >
+                                <span id="label-error-clasification-create" class="help-block"></span>
+                            </div>
+                            <div class="form-group col-md-6" id="group-error-stock-create">
+                                <label class="control-label" for="stock">
+                                    Stock
+                                </label>
+                                <input class="form-control" type="number" min="0" step="1" id="stock" name="stock"
+                                       placeholder="Ingrese stock" >
+                                <span id="label-error-stock-create" class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6" id="group-error-price-create">
+                                <label class="control-label" for="price">
+                                    Precio de Venta
+                                </label>
+                                <input class="form-control" type="number" min="0" step="1" id="price" name="price"
+                                       placeholder="Ingrese precio" >
+                                <span id="label-error-price-create" class="help-block"></span>
+                            </div>
+                            <div class="col-md-6" id="group-error-web-create">
+                                <div class="form-group">
                                     <label class="control-label" for="web">
-                                        Link Descarga
+                                        Link para descarga (Opcional)
                                     </label>
-                                    <input class="form-control" type="url" id="web" name="web"
-                                           placeholder="Ingrese pagina web" >
-                                    <span id="error-web-create" class="help-block"></span>
+                                    <input class="form-control" type="text" id="web" name="web"
+                                           placeholder="Ingrese link para descarga" >
                                 </div>
+                                <span id="label-error-web-create" class="help-block"></span>
                             </div>
-                            <div class="col-md-12">
-                                <div id="description-field" class="form-group">
-                                    <label class="control-label" for="description">
-                                        Descripción (Opcional)
-                                    </label>
-                                    <textarea class="form-control" name="description" id="description" rows="5"
-                                              placeholder="Ingrese una descripción"></textarea>
-                                </div>
+                            <div class="form-group col-md-12" id="group-error-description-create">
+                                <label class="control-label" for="description">
+                                    Descripción
+                                </label>
+                                <textarea class="form-control" name="description" id="description" rows="5"
+                                          placeholder="Ingrese una descripción"></textarea>
+                                <span id="label-error-description-create" class="help-block"></span>
                             </div>
                         </div>
                     </div>
@@ -203,6 +261,62 @@
     <script src="/assets/bootstraptable/bootstrap-table-es-ES.min.js"></script>
     <script src="/assets/bootstraptable/bootstrap-table-export.min.js"></script>
     <script src="/assets/bootstraptable/tableExport.min.js"></script>
+    <script src="/assets/required/app.js"></script>
+
+        <!--script>
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image-cover').attr('src', e.target.result);
+                    $('#image-cover').attr('class', 'img-thumbnail');
+                    $('.link-del').html('borrar');
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readURLEdit(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image-cover-edit').attr('src', e.target.result);
+                    $('#image-cover-edit').height($('#image-cover-edit').width());
+                    $('.link-del').html('borrar');
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#file").change(function () {
+            readURL(this);
+        });
+
+        $('#form-edit').find('#file-edit').change(function () {
+            readURLEdit(this);
+        });
+
+        function deleteAvatarCreate() {
+            $('#modal-create #image-cover').attr('src', '{{ Storage::url('covers/cover-default.png') }}');
+            $('.link-del').html('');
+            $("#modal-create #file").val('');
+        }
+
+        function deleteAvatarEdit() {
+            $('#modal-edit #image-cover-edit').attr('src', '{{ Storage::url('covers/cover-default.png') }}');
+            $('.link-del').html('');
+            $("#modal-edit #file").val('');
+        }
+    </script>
+
+
 
     <script>
 
@@ -310,17 +424,17 @@
         // function de registro
         $(function () {
             $('#form-create').submit(function (e) {
-
                 lockSubmit();
-
+                var form = new FormData(document.getElementById('form-create')[0]);
                 var dataForm = $('#form-create').serialize();
+                console.log(form);
                 e.preventDefault();
                 $.ajax({
                     type: 'post',
                     url: '{{route('games.store')}}',
-                    data: dataForm,
+                    data: form,
                     success: function (data) {
-
+                        console.log(data);
                         if (data.errors) {
                             showInputError(data.errors.name ? data.errors.name : null, '#error-name-create','#group-error-name-create');
                         }
@@ -574,6 +688,133 @@
 
         });
 
+        }
+
+    </script-->
+
+    <script>
+
+        config.csrf_token = "{{ csrf_token() }}";
+        config.urlGetAll = "{{ route('games.all') }}";
+        config.urlStore = " {{route('games.store')}}";
+        config.urlUpdate = " {{ route('games.update') }}";
+        config.urlDestroy = " {{ route('games.destroy') }}";
+        config.urlChangeStatus = " {{ route('games.change-status') }}";
+
+        config.rowTitles = [
+
+            {id: 'id', name: 'Id'},
+            {id: 'name', name: 'Juego'},
+            {id: 'companies_id', name: 'Compañia'},
+            {id: 'second_lastname', name: 'Apellido Materno'},
+            {id: 'role.name', name: 'Rol'},
+            {id: 'created_at', name: 'Creado'},
+            {id: 'updated_at', name: 'Modificado'},
+            {id: 'active', name: 'Estado'}
+        ];
+
+        config.errorsCreateValidate = [
+            {name: 'name',   group: '#group-error-name-create',   label : '#label-error-name-create'},
+            {name: 'companies_id' ,   group: '#group-error-companies_id-create',    label : '#label-error-companies_id-create'},
+            {name: 'description', group: '#group-error-description-create', label : '#label-error-description-create'},
+            {name: 'plataforms_id', group: '#group-error-plataforms_id-create', label : '#label-error-plataforms_id-create'},
+            {name: 'categories_id', group: '#group-error-categories_id-create', label : '#label-error-categories_id-create'},
+            {name: 'price', group: '#group-error-price-create', label : '#label-error-price-create'},
+            {name: 'clasification', group: '#group-error-clasification-create', label : '#label-error-clasification-create'},
+            {name: 'game_types_id', group: '#group-error-game_types_id-create', label : '#label-error-game_types_id-create'},
+            {name: 'stock',  group: '#group-stock-stock-create',     label : '#label-error-stock-create'}
+        ];
+
+        config.errorsEditValidate = [
+            {name: 'avatar',   group: '#group-error-avatar-edit',   label : '#label-error-avatar-edit'},
+            {name: 'email' ,   group: '#group-error-email-edit',    label : '#label-error-email-edit'},
+            {name: 'role_id',  group: '#group-error-role-edit',     label : '#label-error-role-edit'}
+        ];
+
+        function showDataToEdit(rowId){
+
+            var item = items.filter(item => item.id === rowId)[0];
+
+            showModal('#modal-edit');
+
+            $('#form-edit').find('#id').val(item.id);
+            $('#form-edit').find('#firstname').val(item.firstname);
+            $('#form-edit').find('#lastname').val(item.lastname);
+            $('#form-edit').find('#second_lastname').val(item.second_lastname);
+            $('#form-edit').find('#role_id').val(item.role_id);
+            $('#form-edit').find('#email').val(item.email);
+            $('#form-edit').find('#image-avatar-edit').attr('src',item.avatar.replace("public/", "storage/"));
+
+        }
+
+        function hideModal(modal){
+            $(modal).modal('hide');
+            removeErrors();
+        }
+
+        function removeErrors() {
+            $('#label-error-role-create').html('');
+            $('#label-error-email-create').html('');
+            $('#label-error-password-create').html('');
+            $('#group-error-role-create').removeClass('has-error');
+            $('#group-error-email-create').removeClass('has-error');
+            $('#group-error-password-create').removeClass('has-error');
+            $('#label-error-role-edit').html('');
+            $('#label-error-email-edit').html('');
+            $('#label-error-password-edit').html('');
+            $('#group-error-role-edit').removeClass('has-error');
+            $('#group-error-email-edit').removeClass('has-error');
+            $('#group-error-password-edit').removeClass('has-error');
+        }
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image-cover').attr('src', e.target.result);
+                    $('#image-cover').attr('class', 'img-thumbnail');
+                    $('.link-del').html('borrar');
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readURLEdit(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image-cover-edit').attr('src', e.target.result);
+                    $('#image-cover-edit').height($('#image-cover-edit').width());
+                    $('.link-del').html('borrar');
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#file").change(function () {
+            readURL(this);
+        });
+
+        $('#form-edit').find('#file-edit').change(function () {
+            readURLEdit(this);
+        });
+
+        function deleteAvatarCreate() {
+            $('#modal-create #image-cover').attr('src', '{{ Storage::url('covers/cover-default.png') }}');
+            $('.link-del').html('');
+            $("#modal-create #file").val('');
+        }
+
+        function deleteAvatarEdit() {
+            $('#modal-edit #image-cover-edit').attr('src', '{{ Storage::url('covers/cover-default.png') }}');
+            $('.link-del').html('');
+            $("#modal-edit #file").val('');
         }
 
     </script>

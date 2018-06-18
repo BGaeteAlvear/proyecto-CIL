@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\User;
 use App\Model\Plataform;
+use App\Model\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -54,7 +55,8 @@ class DashboardController extends Controller
     private function renderClienteDashboard()
     {
         $plataforms = Plataform::all();
-        return view('dashboard.cliente')->with('plataforms', $plataforms);
+        $games = Game::all();
+        return view('dashboard.cliente')->with('plataforms', $plataforms)->with('games', $games);
     }
 
 }

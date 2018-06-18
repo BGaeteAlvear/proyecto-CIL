@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Willywes
- * Date: 16/02/2018
- * Time: 10:58
- */
 
 namespace App\Http\Controllers\CrudHelper;
 

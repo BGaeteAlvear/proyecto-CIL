@@ -17,16 +17,21 @@ class CreateGamesTable extends Migration
             $table->increments('id');
             $table->string('name',45);
             $table->string('clasification',25)->nullable();
-            $table->double('ranking');
             $table->string('levels',255)->nullable();
-            //$table->boolean('type_game'); //1 fisico 2/web
             $table->text('description');
             $table->text('link')->nullable();
+            $table->string('cover')->default('public/covers/cover-default.png');
             $table->double('price')->nullable();
             $table->double('stock')->nullable();
             $table->boolean('active')->default(1);
             $table->integer('companies_id')->unsigned()->nullable();
             $table->foreign('companies_id')->references('id')->on('companies')->onDelete('set null');
+            $table->integer('categories_id')->unsigned()->nullable();
+            $table->foreign('categories_id')->references('id')->on('categories')->onDelete('set null');
+            $table->integer('game_types_id')->unsigned()->nullable();
+            $table->foreign('game_types_id')->references('id')->on('game_types')->onDelete('set null');
+            $table->integer('plataforms_id')->unsigned()->nullable();
+            $table->foreign('plataforms_id')->references('id')->on('plataforms')->onDelete('set null');
 
             $table->timestamps();
         });
