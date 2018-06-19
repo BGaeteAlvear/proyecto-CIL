@@ -9,7 +9,8 @@ Route::get('/', function () {
 })->name('home');
 
 ///  index
-Route::get('/register', 'RegisterController@register')->name('register');
+Route::get('/register', 'UserController@showRegister')->name('register.show');
+Route::post('register', 'UserController@storeCustomer')->name('register');
 Auth::routes();
 // login y asociados GUEST
 Route::get('/login', 'LoginController@showLogin')->name('login.show');

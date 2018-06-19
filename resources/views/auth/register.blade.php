@@ -43,6 +43,61 @@
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     {!! $errors->first('email','<span class="help-block">:message</span>') !!}
                 </div>
+
+                <div class="form-group has-feedback {{ $errors->has('firstname') ? 'has-error' : '' }}">
+                    <input type="text" name="firstname" class="form-control" value="{{ old('firstname') }}"
+                           placeholder="Ingrese Nombre">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    @if ($errors->has('firstname'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('firstname') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group has-feedback {{ $errors->has('lastname') ? 'has-error' : '' }}">
+                    <input type="text" name="lastname" class="form-control" value="{{ old('lastname') }}"
+                           placeholder="Ingrese Apellido Paterno">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    @if ($errors->has('lastname'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('lastname') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="form-group has-feedback {{ $errors->has('second_lastname') ? 'has-error' : '' }}">
+                    <input type="text" name="second_lastname" class="form-control" value="{{ old('second_lastname') }}"
+                           placeholder="Ingrese Apellido Materno">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    @if ($errors->has('second_lastname'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('second_lastname') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : '' }}">
+                    <input type="password" name="password" class="form-control"
+                           placeholder="Ingrese Contraseña">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    @if ($errors->has('password'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group has-feedback {{ $errors->has('password_confirmation') ? 'has-error' : '' }}">
+                      <input type="password" name="password_confirmation" class="form-control"
+                             placeholder="Re-Ingrese Contraseña">
+                      <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                      @if ($errors->has('password_confirmation'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('password_confirmation') }}</strong>
+                          </span>
+                      @endif
+                  </div>
+
                 <div class="container-fluid">
                     <div class="col-xs-6">
                         <a href="{{ route('login') }}" class="">Ya posee cuenta?</a>
@@ -59,5 +114,5 @@
 </div>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-</body> 
+</body>
 </html>

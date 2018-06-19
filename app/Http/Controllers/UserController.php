@@ -25,6 +25,11 @@ class UserController extends ControllerCrud
         return view('sections.management.users.index')->with(['roles' => $roles]);
     }
 
+    public function showRegister()
+    {
+        return view('auth.register');
+    }
+
     public function getAll(Request $request)
     {
         parent::setCustomQueryGetAll(User::with('role')->orderBy('role_id', 'asc')->get());
@@ -86,6 +91,61 @@ class UserController extends ControllerCrud
 
     }
 
+    public function storeCustomer(Request $request)
+    {
+        //return response()->json($request);
+        $rules = [
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|confirmed|min:6',
+            'firstname' => 'required',
+            'lastname' => 'required'
+        ];
+
+        $messages = [
+            'password.confirmed' => 'Contraseñas no coinciden. Ingrese nuevamente',
+            'password.required' => 'Por favor ingrese contraseña',
+            'firstname.required' => 'Ingrese Nombre',
+            'lastname.required' => 'Ingrese Apellido'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        //dd($validator);
+        if ($validator->passes()) {
+
+            $user = new User();
+
+            $user->email = $request->email;
+            $user->firstname = $request->firstname;
+            $user->lastname = $request->lastname;
+            $user->second_lastname = $request->second_lastname;
+            $user->password = bcrypt($request->password);
+            $user->role_id = 3;
+
+            $user->save();
+
+            try{
+
+                Mail::send('emails.send-new-account', ['user' => $user, 'password' => $request->password], function ($message) use ($user)
+                {
+//
+                    $message->to($user->email, $user->firstname)->subject('Contraseña de Acceso BeGames');
+
+                });
+
+            }catch (\Exception $e){
+//                return ControllerUtils::errorResponseJson($e->getMessage());
+            }
+
+            if($user){
+                return ControllerUtils::successResponseJson($user, "Registro creado correctamente.");
+                return redirect()->route('login');
+            }
+            return ControllerUtils::errorResponseJson('No se ha podido realizar el registro.');
+        }
+        return ControllerUtils::errorResponseValidation($validator);
+
+
+    }
     public function update(Request $request)
     {
         $rules = [
