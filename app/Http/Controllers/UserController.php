@@ -123,6 +123,8 @@ class UserController extends ControllerCrud
 
             $user->save();
 
+            return redirect()->route('login');
+            
             try{
 
                 Mail::send('emails.send-new-account', ['user' => $user, 'password' => $request->password], function ($message) use ($user)

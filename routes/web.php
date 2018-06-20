@@ -10,7 +10,7 @@ Route::get('/', function () {
 
 ///  index
 Route::get('/register', 'UserController@showRegister')->name('register.show');
-Route::post('register', 'UserController@storeCustomer')->name('register');
+Route::post('register/customer', 'UserController@storeCustomer')->name('register-customer');
 Auth::routes();
 // login y asociados GUEST
 Route::get('/login', 'LoginController@showLogin')->name('login.show');

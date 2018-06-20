@@ -36,7 +36,7 @@
                 <p class="login-box-msg">Ingrese sus datos.</p>
             </div>
             
-            <form action="{{ route('register') }}" method="POST">
+            <form action="{{ route('register-customer') }}" method="POST">
                 {!! csrf_field() !!}
                 <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error':'' }}">
                     <input type="email" class="form-control" placeholder="Email" name="email"
