@@ -34,13 +34,19 @@
 
 <div id="exTab2" class="container-fluid item-pills">
     <div class="tab-content">
-        @foreach ($plataforms as $plataform)
-        <div class="tab-pane active" id="{{$plataform->id}}">
-            <h3>{{$plataform->name}}</h3>
+
+        @for ($i = 0; $i < count($plataforms); $i++)
+        @if($i==1)
+            <div class="tab-pane active" id="{{$plataforms[$i]->id}}">
+        @else
+            <div class="tab-pane" id="{{$plataforms[$i]->id}}">
+        @endif
+
+            <h3>{{$plataforms[$i]->name}}</h3>
             <div class="col-lg-12">
                 <div class="row">
                     @foreach ($games as $game)
-                    @if ($plataform->id == $game->plataforms_id)
+                    @if ($plataforms[$i]->id == $game->plataforms_id)
                     <div class="col-lg-3">
                         <p>{{$game->name}}</p>
                         <img src="{{Storage::url($game->cover)}}" width="100%">
@@ -53,7 +59,7 @@
                 </div>
             </div>
         </div>
-        @endforeach
+        @endfor
 
     </div>
 

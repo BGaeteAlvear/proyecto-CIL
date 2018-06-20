@@ -44,7 +44,7 @@
                             <th data-field="status" data-checkbox="true" data-tableexport-display="none"></th>
                             <th data-field="id" data-sortable="true">ID</th>
                             <th data-field="name" data-cell-style="cellStyle" data-sortable="true">Nombre</th>
-                            <th data-field="companies.name" data-sortable="true">Compañia</th>
+                            <!--th data-field="companies.name" data-sortable="true">Compañia</th-->
                             <th data-field="description" data-sortable="true">Descripción</th>
                             <th data-field="created_at" data-cell-style="cellStyle" data-align="center" data-sortable="true" data-formatter="dateFormat" >Creado</th>
                             <th data-field="updated_at" data-cell-style="cellStyle" data-align="center" data-sortable="true" data-formatter="dateFormat" data-sorteable="true" >Modificado</th>
@@ -192,7 +192,7 @@
 
     <!--modal edit-->
     <div class="modal fade in" id="modal-edit">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <form method="post" id="form-edit">
                 {{ csrf_field() }}
                 <input type="hidden" name="id" id="id-edit" >
@@ -204,34 +204,112 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group col-md-12" id="group-error-cover-edit">
+                                    <label for="cover">Caratula del Juego</label>
+                                    <div class="image-cover">
+                                        <img id="image-cover-edit" class="img-thumbnail" height="370px" width="100%" src="{{ Storage::url('covers/cover-default.png') }}">
+                                    </div>
+                                    <input type="file" name="cover" id="file-edit"
+                                           class="inputfile" accept="image/x-png,image/gif,image/jpeg"/>
+                                    <label for="file-edit">Seleccione Caratula del Juego</label>
+                                    <span class="help-block" id="label-error-cover-edit"></span>
+                                    <div class="link-del" onclick="deleteAvatarEdit();"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div id="group-error-name-edit" class="form-group">
-                                    <label class="control-label" for="name">
+                                    <label class="control-label " for="name">
                                         Nombre
                                     </label>
                                     <input class="form-control" type="text" id="name" name="name"
-                                           placeholder="Ingrese un nombre." >
-                                    <span id="error-name-edit" class="help-block"></span>
+                                           placeholder="Ingrese un nombre.">
+                                    <span id="label-error-name-edit" class="help-block"></span>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div id="group-error-web-edit" class="form-group">
+                            <div class="form-group col-md-6" id="group-error-companies_id-edit">
+                                <label for="role_id">Compañia</label>
+                                <select class="form-control"  id="companies_id" name="companies_id">
+                                    <option selected disabled value="">Seleccione</option>
+                                    @foreach($companies as $company)
+                                        <option value="{{$company->id}}" >{{$company->name}}</option>
+                                    @endforeach
+                                </select>
+                                <span class="help-block" id="label-error-companies_id-edit"></span>
+                            </div>
+                            <div class="form-group col-md-6" id="group-error-plataforms_id-edit">
+                                <label for="role_id">Plataforma</label>
+                                <select class="form-control" id="plataforms_id" name="plataforms_id">
+                                    <option selected disabled value="">Seleccione</option>
+                                    @foreach($plataforms as $plataform)
+                                        <option value="{{$plataform->id}}" >{{$plataform->name}}</option>
+                                    @endforeach
+                                </select>
+                                <span class="help-block" id="label-error-plataforms_id-edit"></span>
+                            </div>
+                            <div class="form-group col-md-6" id="group-error-game_types_id-edit">
+                                <label for="role_id">Tipo de Juego</label>
+                                <select class="form-control" id="game_types_id" name="game_types_id">
+                                    <option selected disabled value="">Seleccione</option>
+                                    @foreach($game_types as $game_type)
+                                        <option value="{{$game_type->id}}" >{{$game_type->name}}</option>
+                                    @endforeach
+                                </select>
+                                <span class="help-block" id="label-error-game_types_id-edit"></span>
+                            </div>
+                            <div class="form-group col-md-6" id="group-error-categories_id-edit">
+                                <label for="role_id">Categoría</label>
+                                <select class="form-control" id="categories_id" name="categories_id">
+                                    <option selected disabled value="">Seleccione</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}" >{{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                                <span class="help-block" id="label-error-categories_id-edit"></span>
+                            </div>
+                            <div class="form-group col-md-6" id="group-error-clasification-edit">
+                                <label class="control-label" for="clasification">
+                                    Clasificación
+                                </label>
+                                <input class="form-control" type="text" id="clasification" name="clasification"
+                                       placeholder="Ingrese clasificación" >
+                                <span id="label-error-clasification-edit" class="help-block"></span>
+                            </div>
+                            <div class="form-group col-md-6" id="group-error-stock-edit">
+                                <label class="control-label" for="stock">
+                                    Stock
+                                </label>
+                                <input class="form-control" type="number" min="0" step="1" id="stock" name="stock"
+                                       placeholder="Ingrese stock" >
+                                <span id="label-error-stock-edit" class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6" id="group-error-price-edit">
+                                <label class="control-label" for="price">
+                                    Precio de Venta
+                                </label>
+                                <input class="form-control" type="number" min="0" step="1" id="price" name="price"
+                                       placeholder="Ingrese precio" >
+                                <span id="label-error-price-edit" class="help-block"></span>
+                            </div>
+                            <div class="col-md-6" id="group-error-web-edit">
+                                <div class="form-group">
                                     <label class="control-label" for="web">
-                                        Página Web
+                                        Link para descarga (Opcional)
                                     </label>
-                                    <input class="form-control" type="url" id="web" name="web"
-                                           placeholder="Ingrese pagina web" >
-                                    <span id="error-web-edit" class="help-block"></span>
+                                    <input class="form-control" type="text" id="web" name="web"
+                                           placeholder="Ingrese link para descarga" >
                                 </div>
+                                <span id="label-error-web-edit" class="help-block"></span>
                             </div>
-                            <div class="col-md-12">
-                                <div id="description-field" class="form-group">
-                                    <label class="control-label" for="description">
-                                        Descripción (Opcional)
-                                    </label>
-                                    <textarea class="form-control" name="description" id="description" rows="5"
-                                              placeholder="Ingrese una descripción" ></textarea>
-                                </div>
+                            <div class="form-group col-md-12" id="group-error-description-edit">
+                                <label class="control-label" for="description">
+                                    Descripción
+                                </label>
+                                <textarea class="form-control" name="description" id="description" rows="5"
+                                          placeholder="Ingrese una descripción"></textarea>
+                                <span id="label-error-description-edit" class="help-block"></span>
                             </div>
                         </div>
                     </div>
@@ -244,7 +322,6 @@
             </form>
         </div>
     </div>
-
 @endsection
 
 @section('styles')
@@ -737,12 +814,17 @@
 
             showModal('#modal-edit');
 
-            $('#form-edit').find('#id').val(item.id);
-            $('#form-edit').find('#firstname').val(item.firstname);
-            $('#form-edit').find('#lastname').val(item.lastname);
-            $('#form-edit').find('#second_lastname').val(item.second_lastname);
-            $('#form-edit').find('#role_id').val(item.role_id);
+            $('#form-edit').find('#id-edit').val(item.id);
+            $('#form-edit').find('#name').val(item.name);
+            $('#form-edit').find('#companies_id').val(item.companies_id);
+            $('#form-edit').find('#description').val(item.description);
+            $('#form-edit').find('#plataforms_id').val(item.plataforms_id);
+            $('#form-edit').find('#categories_id').val(item.categories_id);
+            $('#form-edit').find('#price').val(item.price);
+            $('#form-edit').find('#clasification').val(item.clasification);
+            $('#form-edit').find('#game_types_id').val(item.game_types_id);
             $('#form-edit').find('#email').val(item.email);
+            $('#form-edit').find('#stock').val(item.stock);
             $('#form-edit').find('#image-avatar-edit').attr('src',item.avatar.replace("public/", "storage/"));
 
         }
