@@ -9,7 +9,7 @@
 
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav navbar-toggler-right">
-            <li><a href="#">Compras</a>
+            <li><a href="#"><i class="fa fa-shopping-cart">&nbsp</i>Compras</a>
             </li>
             <!--li class="dropdown messages-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
