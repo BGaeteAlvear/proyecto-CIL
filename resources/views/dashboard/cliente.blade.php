@@ -51,7 +51,7 @@
                         <p>{{$game->name}}</p>
                         <img src="{{Storage::url($game->cover)}}" width="100%">
 
-                        <button type="button" class="btn form-control btn-success btn-flat" name="button"><i class="fa fa-fw fa-shopping-cart"></i> Agregar</button>
+                        <button type="button" class="btn form-control btn-success btn-flat" name="button"><i class="fa fa-fw fa-shopping-cart"><a href="{{ route('game.addCart',['id'=>$game->id])}}"></i> Agregar</button></a>
                         <p class="text-justify">${{number_format($game->price)}}</p>
                     </div>
                     @endif

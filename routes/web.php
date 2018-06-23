@@ -12,6 +12,8 @@ Route::get('/', function () {
 Route::get('/register', 'UserController@showRegister')->name('register.show');
 Route::post('register/customer', 'UserController@storeCustomer')->name('register-customer');
 Auth::routes();
+
+
 // login y asociados GUEST
 Route::get('/login', 'LoginController@showLogin')->name('login.show');
 Route::post('/login', 'LoginController@login')->name('login');
@@ -113,6 +115,13 @@ Route::middleware('auth')->group(function () {
         });
 
     });
+
+    // Carro
+    Route::get('/add/{id}',[
+        'uses' => 'GameController@addCart',
+        'as' => 'game.addCart'
+    ]);
+    
 
 
     Route::middleware('cajero')->group(function () {

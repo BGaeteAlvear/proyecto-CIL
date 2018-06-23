@@ -11,9 +11,22 @@ use App\Model\Category;
 use App\Model\GameType;
 use App\Model\Plataform;
 use Illuminate\Support\Facades\Validator;
+use Session;
 
 class GameController extends ControllerCrud
 {
+    public function addCart(Request $request, $id)
+    {
+        $game = Game::find($id);
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->add($game, $game->id);
+
+        $request->session()->put('cart',$cart);
+        dd($request->session()->get('cart'));
+        return redirect()->route('dashboard');
+
+    }
     public function index()
     {
         $companies = Company::all();
