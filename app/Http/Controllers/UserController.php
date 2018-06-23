@@ -9,6 +9,7 @@ use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Session;
 
 
@@ -22,8 +23,9 @@ class UserController extends ControllerCrud
 
     public function index()
     {
+        $cart = $cart = Cart::instance('shopping')->content();
         $roles = Role::orderBy('name', 'asc')->get();
-        return view('sections.management.users.index')->with(['roles' => $roles]);
+        return view('sections.management.users.index')->with(['roles' => $roles, 'cart' =>$cart]);
     }
 
     public function showRegister()
@@ -94,7 +96,7 @@ class UserController extends ControllerCrud
 
     public function storeCustomer(Request $request)
     {
-        
+
         $rules = [
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:6',
@@ -110,7 +112,7 @@ class UserController extends ControllerCrud
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
-        
+
         if ($validator->passes()) {
 
             $user = new User();

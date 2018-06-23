@@ -13,7 +13,7 @@
                 <li class="dropdown tasks-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-shopping-cart">&nbsp</i>Mi Carrito
-                        <span id="countCart" class="label label-danger">{{count($cart)}}</span>
+                        <span id="countCart" class="label label-danger">{{isset($cart) ? count($cart) :"0"}}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
@@ -21,16 +21,19 @@
                             <h4>Lista de Compra</h4>
                             <hr>
                         </div>
-                        @foreach ($cart as  $value)
+                        @if (isset($cart))
+                            @foreach ($cart as  $value)
 
-                                <div class="container">
-                                    <p>
-                                        <h5> <strong>{{ $value->name }} </strong> <small>$ {{$value->price}}</small></h5>
-                                        <small class="pull-left">Cantidad : {{ $value->qty}}</small>
-                                    </p>
-                                </div>
+                                    <div class="container">
+                                        <p>
+                                            <h5> <strong>{{ $value->name }} </strong> <small>$ {{$value->price}}</small></h5>
+                                            <small class="pull-left">Cantidad : {{ $value->qty}}</small>
+                                        </p>
+                                    </div>
 
-                        @endforeach
+                            @endforeach
+                        @endif
+
                         <br>
                         <div class="container">
                             <h4>{{isset($total) ? '$' : ''}}{{isset($total) ? $total : 'No hay Elementos'}}</h4>
