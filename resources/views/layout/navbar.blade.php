@@ -9,8 +9,44 @@
 
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav navbar-toggler-right">
-            <li><a href="#"><i class="fa fa-shopping-cart">&nbsp</i>Compras</a>
-            </li>
+            @if (Auth::user()->role_id ==3)
+                <li class="dropdown tasks-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-shopping-cart">&nbsp</i>Mi Carrito
+                        <span id="countCart" class="label label-danger">{{count($cart)}}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <div class="container">
+                            <h4>Lista de Compra</h4>
+                            <hr>
+                        </div>
+                        @foreach ($cart as  $value)
+
+                                <div class="container">
+                                    <p>
+                                        <h5> <strong>{{ $value->name }} </strong> <small>$ {{$value->price}}</small></h5>
+                                        <small class="pull-left">Cantidad : {{ $value->qty}}</small>
+                                    </p>
+                                </div>
+
+                        @endforeach
+                        <br>
+                        <div class="container">
+                            <h4>{{isset($total) ? '$' : ''}}{{isset($total) ? $total : 'No hay Elementos'}}</h4>
+                        </div>
+                        <!-- Menu Body -->
+
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <a href="{{ route('games.cart-detail')}}"class="btn btn-primary btn-flat form-control" type="button" name="button">Ver detalle </a>
+                        </li>
+                    </ul>
+                </li>
+
+            @endif
+
+
             <!--li class="dropdown messages-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-envelope-o"></i>
@@ -61,38 +97,7 @@
                 </ul>
             </li>
             <!-- Tasks: style can be found in dropdown.less -->
-            <!--li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-tasks"></i>
-                    <span class="label label-danger">9</span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li class="header">You have 9 tasks</li>
-                    <li>
-                        <!-- inner menu: contains the actual data -->
-                        <!--ul class="menu">
-                            <li><!-- Task item -->
-                                <!--a href="#">
-                                    <h3>
-                                        Design some buttons
-                                        <small class="pull-right">20%</small>
-                                    </h3>
-                                    <div class="progress xs">
-                                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <!-- end task item -->
-                        <!--/ul>
-                    </li>
-                    <li class="footer">
-                        <a href="#">View all tasks</a>
-                    </li>
-                </ul>
-            </li>
+
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -108,7 +113,9 @@
                             {{ Auth::user()->firstname . ' ' .Auth::user()->lastname  }}
                             <small>Último Acceso : {{ Auth::user()->last_login_date ? (new DateTime(Auth::user()->last_login_date))->format('d-m-Y H:i:s') : 'nunca' }}</small>
                         </p>
+
                     </li>
+                    <hr>
                     <!-- Menu Body -->
 
                     <!-- Menu Footer-->

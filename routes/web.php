@@ -116,22 +116,17 @@ Route::middleware('auth')->group(function () {
 
     });
 
-    // Carro
-    Route::get('/add/{id}',[
-        'uses' => 'GameController@addCart',
-        'as' => 'game.addCart'
-    ]);
-    
-
-
     Route::middleware('cajero')->group(function () {
 
     });
 
-
-
     Route::middleware('cliente')->group(function () {
+        Route::prefix('games')->group(function () {
+            Route::get('/detail-cart-all', 'GameController@cartDetailAll')->name('games.cart-detail-all');
+            Route::get('/detail-cart', 'GameController@cartDetail')->name('games.cart-detail');
+            Route::post('/add-cart', 'GameController@addCart')->name('games.add-cart');
 
+        });
     });
 
 });

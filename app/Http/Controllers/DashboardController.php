@@ -8,7 +8,7 @@ use App\Model\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Gloudemans\Shoppingcart\Facades\Cart;
 class DashboardController extends Controller
 {
 
@@ -43,7 +43,23 @@ class DashboardController extends Controller
 
     private function renderAdminDashboard()
     {
-        return view('dashboard.admin');
+        $nodes_unassigned = Game::get()->count();
+        $nodes_suggested = Game::sum('stock');
+        $nodes_in_review = Plataform::get()->count();
+        $total_nodes = Game::get()->count();
+        $constructores = DB::table('users')
+            ->join('roles', 'users.role_id', '=', 'roles.id')
+            ->where('roles.name','LIKE','Cliente')
+            ->get()->count();
+
+        return view('dashboard.admin')->with([
+            'total_nodes' => $total_nodes,
+            'nodes_unassigned' => $nodes_unassigned,
+            'nodes_suggested' => $nodes_suggested,
+            'nodes_in_review' => $nodes_in_review,
+            'constructores' => $constructores
+        ]);
+        //return view('dashboard.admin');
 
     }
 
@@ -54,9 +70,38 @@ class DashboardController extends Controller
 
     private function renderClienteDashboard()
     {
+
+        $cart = Cart::instance('shopping')->content();
+        $total = Cart::total(0, ',', '.');;
         $plataforms = Plataform::all();
         $games = Game::all();
-        return view('dashboard.cliente')->with('plataforms', $plataforms)->with('games', $games);
+
+        //return response()->json($cart);
+        return view('dashboard.cliente')->with('plataforms', $plataforms)->with('games', $games)->with('cart', $cart)->with('total', $total);
+    }
+
+    public function getAsignVsAprob(){
+
+
+    $data = DB::table('users')
+        ->select('users.id',
+            DB::raw("CONCAT_WS(' ',users.firstname, users.lastname) fullname"),
+            DB::raw("(select count(*) from nodes where nodes.user_id = users.id and (nodes.node_status_id <> 'APROB' or nodes.node_status_id <> 'PUBLI')) nodos_assigned"),
+            DB::raw("(select count(*) from nodes where nodes.user_id = users.id and (nodes.node_status_id like 'APROB' or nodes.node_status_id like 'PUBLI')) nodes_aproved"))
+        ->join('roles', 'users.role_id', '=', 'roles.id')
+        ->where('roles.name','LIKE','Constructor')
+        ->get();
+
+    return response()->json($data);
+    }
+
+    public function getNodesStatuses(){
+
+        $data = DB::table('games')
+            ->select( '*',DB::raw("(select count(stock) from games ) count"))
+            ->get();
+
+        return response()->json($data);
     }
 
 }

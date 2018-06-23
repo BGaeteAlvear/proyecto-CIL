@@ -51,7 +51,7 @@
                         <p>{{$game->name}}</p>
                         <img src="{{Storage::url($game->cover)}}" width="100%">
 
-                        <button type="button" class="btn form-control btn-success btn-flat" name="button"><i class="fa fa-fw fa-shopping-cart"><a href="{{ route('game.addCart',['id'=>$game->id])}}"></i> Agregar</button></a>
+                        <button type="button" id="{{$game->id}}" onclick="addCart(this)" class="btn form-control btn-success btn-flat" name="button">Agregar</button></a>
                         <p class="text-justify">${{number_format($game->price)}}</p>
                     </div>
                     @endif
@@ -65,4 +65,39 @@
 
 </div>
 
+
+
+@endsection
+
+@section('scripts')
+    <script>
+
+    function addCart(value) {
+        var id =value.id;
+        var url = '{{route('games.add-cart')}}';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {
+                _token : '{{ csrf_token() }}',
+                id : id
+            },
+            success: function (data) {
+                console.log(data);
+                if (data.errors) {
+
+                }
+                if(data.status === 'success'){
+                    showToastSuccess(data.message);
+                    $('#countCart').html(data.length);
+
+                }
+            },
+            error: function (error) {
+                showToastError('Error inesperado, por favor inténtalo denuevo mas tarde.');
+
+            }
+        });
+    }
+    </script>
 @endsection

@@ -11,22 +11,38 @@ use App\Model\Category;
 use App\Model\GameType;
 use App\Model\Plataform;
 use Illuminate\Support\Facades\Validator;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Session;
 
 class GameController extends ControllerCrud
 {
-    public function addCart(Request $request, $id)
+    public function addCart(Request $request)
     {
-        $game = Game::find($id);
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
-        $cart->add($game, $game->id);
-
-        $request->session()->put('cart',$cart);
-        dd($request->session()->get('cart'));
-        return redirect()->route('dashboard');
-
+        $game = Game::where('id','=',$request->id)->first();
+        Cart::instance('shopping')->add ($game->id ,$game->name , 1 , $game->price );
+        $cart = Cart::content('shopping');
+        return ControllerUtils::successResponseJson($cart, "El juego".$game->name." se ha agregado al carrito correctamente.");
     }
+
+    public function cartDetail()
+    {
+        $cart = Cart::instance('shopping')->content();
+        return view('sections.customer.detail-cart')->with(['cart' => $cart]);
+    }
+
+    public function cartDetailAll(Request $request)
+    {
+
+        
+        $cartAll = Cart::instance('shopping')->content();
+        foreach ($cartAll as  $value) {
+            $result[]=[
+                'id' => $value
+            ];
+        }
+        return response()->json($result);
+    }
+
     public function index()
     {
         $companies = Company::all();
@@ -35,6 +51,8 @@ class GameController extends ControllerCrud
         $plataforms = Plataform::all();
         return view('sections.config.games')->with(['companies' => $companies ,'game_types' => $game_types,'categories' => $categories, 'plataforms' => $plataforms]);
     }
+
+
 
     public function store(Request $request)
     {
