@@ -9,6 +9,7 @@ use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Session;
 
 
 class UserController extends ControllerCrud
@@ -123,8 +124,10 @@ class UserController extends ControllerCrud
 
             $user->save();
 
-            return redirect()->route('login');
-            
+            Session()->flash('exito', 'Usuario registrado exitosamente!');
+
+            return redirect()->route('register');
+
             try{
 
                 Mail::send('emails.send-new-account', ['user' => $user, 'password' => $request->password], function ($message) use ($user)

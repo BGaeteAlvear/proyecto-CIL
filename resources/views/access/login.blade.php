@@ -66,12 +66,11 @@
                         <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
                     </div>
                 </div>
-
             </form>
         </div>
-
     </div>
 </div>
+
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 </body>

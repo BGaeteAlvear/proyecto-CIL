@@ -16,6 +16,14 @@
 </head>
 <body class="BEGAMES-bg-style">
 <div class="text-center col-md-12">
+  @if(Session::has('exito'))
+      <div class="row">
+          <div class="alert alert-success alert-dismissible">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              {{ Session::get('exito')}}
+          </div>
+      </div>
+  @endif
     <a href="/">
         <img src="{{ url('assets/images/logo2.png') }}" alt="BEGAMES" class="img-fluid" style="max-width: 100%;height: auto">
     </a>
@@ -35,7 +43,7 @@
             <div class="text-center">
                 <p class="login-box-msg">Ingrese sus datos.</p>
             </div>
-            
+
             <form action="{{ route('register-customer') }}" method="POST">
                 {!! csrf_field() !!}
                 <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error':'' }}">
@@ -107,11 +115,12 @@
                         <button type="submit" class="btn btn-primary btn-block">Registrar</button>
                     </div>
                 </div>
-
             </form>
         </div>
 
     </div>
+
+
 </div>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
