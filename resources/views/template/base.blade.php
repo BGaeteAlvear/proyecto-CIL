@@ -105,7 +105,7 @@
 
     <div class="content-wrapper">
 
-        <section class="content-header">
+        <!--<section class="content-header">
             <h1>
                 @yield('content-title', '')
                 <small> @yield('content-subtitle', '')</small>
@@ -114,7 +114,7 @@
                 <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
                 @yield('breadcrumb')
             </ol>
-        </section>
+        </section> -->
 
         <section class="content">
             <div class="row">
