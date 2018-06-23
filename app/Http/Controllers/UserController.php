@@ -94,7 +94,7 @@ class UserController extends ControllerCrud
 
     public function storeCustomer(Request $request)
     {
-        //return response()->json($request);
+        
         $rules = [
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:6',
@@ -110,7 +110,7 @@ class UserController extends ControllerCrud
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
-        //dd($validator);
+        
         if ($validator->passes()) {
 
             $user = new User();
