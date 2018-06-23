@@ -90,30 +90,64 @@ class GameController extends ControllerCrud
         return ControllerUtils::errorResponseValidation($validator);
     }
 
+
+    public function update(Request $request)
+    {
+        //dd($request->file('cover')->store('public/cover'));
+        //dd($request);
+        $rules = [
+            'name' => 'required',
+            'companies_id' => 'required',
+            'categories_id' => 'required',
+            'description' => 'required',
+            'game_types_id' => 'required',
+            'plataforms_id' => 'required',
+            'price' => 'required|numeric|min:1',
+            'stock' => 'required|numeric|min:1'
+        ];
+
+        $messages = [
+            'name.required' => 'El nombre del juego es obligatorio',
+            'price.required' => 'El precio es obligatirio',
+            'plataforms_id.required' => 'El campo plataforma es obligatirio',
+            'price.numeric' => 'El precio debe ser numérico',
+            'game_types_id.required' => 'El tipo de Juego es obligatirio',
+            'companies_id.required' => 'La compañia del Juego es obligatirio',
+            'categories_id.required' => 'La categoria del Juego es obligatirio',
+            'price.min' => 'El valor del precio debe ser mayor a $1',
+            'description.required' => 'La descripción es requerida',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->passes()) {
+
+            $game = Game::where('id','=',$request->id)->first();
+            if ($request->hasFile('cover')) {
+                $game->cover = $request->file('cover')->store('public/cover');
+            }
+            $game->price = $request->price;
+            $game->stock = $request->stock;
+            $game->plataforms_id = $request->plataforms_id;
+            $game->categories_id = $request->categories_id;
+            $game->game_types_id = $request->game_types_id;
+            $game->companies_id = $request->companies_id;
+            $game->description = $request->description;
+            $game->save();
+
+            if($game){
+                return ControllerUtils::successResponseJson($game, "Registro actualizado correctamente.");
+            }
+            return ControllerUtils::errorResponseJson('No se ha podido actualizar el registro.');
+        }
+        return ControllerUtils::errorResponseValidation($validator);
+
+    }
+
     public function __construct()
     {
         parent::__construct(Game::class);
-    //    $companies = Company::all();
-    //    parent::setIndexPage('');
-        //validate store
-        /*parent::setValidationStore([
-            'name' => 'required|max:50|min:1',
-            'clasification' => 'required|max:50|min:1',
-            'description' => 'required|max:50|min:1',
-            'link' => 'url',
-            'price' => 'required|numeric|max:50|min:1',
-            'stock' => 'required|numeric|max:50|min:1',
-        ]);
-        //validate update
-        parent::setValidationUpdate([
-            'name' => 'required|max:50|min:1',
-            'clasification' => 'required|max:50|min:1',
-            'description' => 'required|max:50|min:1',
-            'link' => 'url',
-            'price' => 'required|numeric|max:50|min:1',
-            'stock' => 'required|numeric|max:50|min:1',
-        ]);
-        */
+
     }
 
 
