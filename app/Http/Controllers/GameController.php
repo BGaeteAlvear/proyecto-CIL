@@ -91,6 +91,7 @@ class GameController extends ControllerCrud
                 $game->cover = $request->file('cover')->store('public/cover');
             }*/
             $game->cover = $request->file('cover')->store('public/cover');
+            $game->link = $request->web;
             $game->price = $request->price;
             $game->stock = $request->stock;
             $game->plataforms_id = $request->plataforms_id;
@@ -146,6 +147,7 @@ class GameController extends ControllerCrud
             }
             $game->price = $request->price;
             $game->stock = $request->stock;
+            $game->link = $request->web;
             $game->plataforms_id = $request->plataforms_id;
             $game->categories_id = $request->categories_id;
             $game->game_types_id = $request->game_types_id;
