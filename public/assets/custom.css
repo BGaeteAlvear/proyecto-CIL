@@ -17,6 +17,11 @@ body, html {
     display: none;
 }
 
+.bg-style{
+    background: url('images/login-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
 .slider {
     position: absolute;
     cursor: pointer;
@@ -361,19 +366,6 @@ thead {
     border-bottom: 1px solid #ccc;
 }
 
-
-
-.BEGAMES-bg-style {
-   /* background: #008bff;
-    background: -moz-linear-gradient(top, #008bff 0%, #56daff 100%);
-    background: -webkit-linear-gradient(top, #008bff 0%, #56daff 100%);
-    background: linear-gradient(to bottom, #008bff 0%, #56daff 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#008bff', endColorstr='#56daff', GradientType=0);*/
-background: url('images/jugando.png') no-repeat center center fixed;
-background-size: cover;
-}
-}
-
 .login-boxer{
     /*margin: auto !important;*/
     margin: 0 auto;
@@ -402,7 +394,7 @@ background-size: cover;
 }
 
 .login-box-title {
-    background: #04B45F;
+    background: #398fc7;
     border-bottom: 1px solid #ccc;
     padding: 15px 20px;
     width: 100%;
@@ -590,4 +582,24 @@ font-weight: bold;
     color:#30861c;
     font-size: 18px;
 
+}
+
+.skin-black-light .main-header .navbar {
+    background-color: #398fc7;
+}
+
+.skin-black-light .main-header>.logo {
+    background-color: #398fc7;
+    color: #fff;
+    /* border-bottom: 1px solid #d2d6de; */
+    border-bottom: 1px solid transparent;
+    border-right: none;
+}
+
+.skin-black-light .main-header>.logo:hover {
+    background-color: #206592;
+    color: #fff;
+    /* border-bottom: 1px solid #d2d6de; */
+    border-bottom: 1px solid transparent;
+    border-right: none;
 }
