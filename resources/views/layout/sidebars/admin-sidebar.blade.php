@@ -13,47 +13,47 @@
                     </span>
     </a>
     <ul class="treeview-menu">
-        <li {{ (Request::is('config/categories') ? 'class=active' : '') }} >
-            <a href="{{ route('categories') }}">
+        <li>
+            <a href="#">
                 <i class="fa fa-angle-right"></i>
-                Categorías de Juegos
+                Sliders
             </a>
         </li>
-        <li {{ (Request::is('config/plataforms') ? 'class=active' : '') }} >
-            <a href="{{ route('plataforms') }}">
+        <li>
+            <a href="#">
                 <i class="fa fa-angle-right"></i>
-                Plataformas
+                Noticias
             </a>
         </li>
-        <li {{ (Request::is('config/game-types') ? 'class=active' : '') }} >
-            <a href="{{ route('game-types') }}">
+        <li>
+            <a href="#">
                 <i class="fa fa-angle-right"></i>
-                Tipos de Juegos
+                Profesores
             </a>
         </li>
-        <li {{ (Request::is('config/companies') ? 'class=active' : '') }} >
-            <a href="{{ route('companies') }}">
+        <li>
+            <a href="#">
                 <i class="fa fa-angle-right"></i>
-                Compañias de Juegos
+                Agenda
             </a>
         </li>
-        <li {{ (Request::is('config/media-types') ? 'class=active' : '') }} >
-            <a href="{{ route('media-types') }}">
+        <li>
+            <a href="#">
                 <i class="fa fa-angle-right"></i>
-                Tipos de Recuros Media
+                Actividades
             </a>
         </li>
-        <li {{ (Request::is('config/games') ? 'class=active' : '') }} >
-            <a href="{{ route('games') }}">
+        <li >
+            <a href="#">
                 <i class="fa fa-angle-right"></i>
-                Juegos
+                Galerias
             </a>
         </li>
     </ul>
 </li>
-<li {{ (Request::is('management-games') ? 'class=active' : '') }}>
-    <a href="{{ route('management.games') }}">
+<li>
+    <a href="#">
         <i class="fa fa-gamepad"></i>
-        <span>Juegos</span>
+        <span>Paginas</span>
     </a>
 </li>

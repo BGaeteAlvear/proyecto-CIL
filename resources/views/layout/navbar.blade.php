@@ -9,47 +9,7 @@
 
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav navbar-toggler-right">
-            @if (Auth::user()->role_id ==3)
-                <li class="dropdown tasks-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-shopping-cart">&nbsp</i>Mi Carrito
-                        <span id="countCart" class="label label-danger">{{isset($cart) ? count($cart) :"0"}}</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <div class="container">
-                            <h4>Lista de Compra</h4>
-                            <hr>
-                        </div>
-                        @if (isset($cart))
-                            @foreach ($cart as  $value)
-
-                                    <div class="container">
-                                        <p>
-                                            <h5> <strong>{{ $value->name }} </strong> <small>$ {{$value->price}}</small></h5>
-                                            <small class="pull-left">Cantidad : {{ $value->qty}}</small>
-                                        </p>
-                                    </div>
-
-                            @endforeach
-                        @endif
-
-                        <br>
-                        <div class="container">
-                            <h4>{{isset($total) ? '$' : ''}}{{isset($total) ? $total : 'No hay Elementos'}}</h4>
-                        </div>
-                        <!-- Menu Body -->
-
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <a href="{{ route('games.cart-detail')}}"class="btn btn-primary btn-flat form-control" type="button" name="button">Ver detalle </a>
-                        </li>
-                    </ul>
-                </li>
-
-            @endif
-
-
+    
             <!--li class="dropdown messages-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-envelope-o"></i>

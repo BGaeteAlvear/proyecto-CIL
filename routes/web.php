@@ -55,64 +55,9 @@ Route::middleware('auth')->group(function () {
             });
 
         Route::prefix('config')->group(function () {
-            Route::prefix('categories')->group(function () {
-                Route::get('/', 'CategoryController@index')->name('categories');
-                Route::get('/all', 'CategoryController@getAll')->name('categories.all');
-                Route::post('/store', 'CategoryController@store')->name('categories.store');
-                Route::post('/update', 'CategoryController@update')->name('categories.update');
-                Route::post('/change-status', 'CategoryController@changeStatus')->name('categories.change-status');
-                Route::post('/destroy', 'CategoryController@destroy')->name('categories.destroy');
-            });
 
-            Route::prefix('plataforms')->group(function () {
-                Route::get('/', 'PlataformController@index')->name('plataforms');
-                Route::get('/all', 'PlataformController@getAll')->name('plataforms.all');
-                Route::post('/store', 'PlataformController@store')->name('plataforms.store');
-                Route::post('/update', 'PlataformController@update')->name('plataforms.update');
-                Route::post('/change-status', 'PlataformController@changeStatus')->name('plataforms.change-status');
-                Route::post('/destroy', 'PlataformController@destroy')->name('plataforms.destroy');
-            });
-
-            Route::prefix('game-types')->group(function () {
-                Route::get('/', 'GameTypesController@index')->name('game-types');
-                Route::get('/all', 'GameTypesController@getAll')->name('game-types.all');
-                Route::post('/store', 'GameTypesController@store')->name('game-types.store');
-                Route::post('/update', 'GameTypesController@update')->name('game-types.update');
-                Route::post('/change-status', 'GameTypesController@changeStatus')->name('game-types.change-status');
-                Route::post('/destroy', 'GameTypesController@destroy')->name('game-types.destroy');
-            });
-
-            Route::prefix('companies')->group(function () {
-                Route::get('/', 'CompaniesController@index')->name('companies');
-                Route::get('/all', 'CompaniesController@getAll')->name('companies.all');
-                Route::post('/store', 'CompaniesController@store')->name('companies.store');
-                Route::post('/update', 'CompaniesController@update')->name('companies.update');
-                Route::post('/change-status', 'CompaniesController@changeStatus')->name('companies.change-status');
-                Route::post('/destroy', 'CompaniesController@destroy')->name('companies.destroy');
-            });
-
-            Route::prefix('media-types')->group(function () {
-                Route::get('/', 'MediaTypesController@index')->name('media-types');
-                Route::get('/all', 'MediaTypesController@getAll')->name('media-types.all');
-                Route::post('/store', 'MediaTypesController@store')->name('media-types.store');
-                Route::post('/update', 'MediaTypesController@update')->name('media-types.update');
-                Route::post('/change-status', 'MediaTypesController@changeStatus')->name('media-types.change-status');
-                Route::post('/destroy', 'MediaTypesController@destroy')->name('media-types.destroy');
-            });
-
-            Route::prefix('games')->group(function () {
-                Route::get('/', 'GameController@index')->name('games');
-                Route::get('/all', 'GameController@getAll')->name('games.all');
-                Route::post('/store', 'GameController@store')->name('games.store');
-                Route::post('/update', 'GameController@update')->name('games.update');
-                Route::post('/change-status', 'GameController@changeStatus')->name('games.change-status');
-                Route::post('/destroy', 'GameController@destroy')->name('games.destroy');
-            });
          });
 
-        Route::prefix('management-games')->group(function () {
-            Route::get('/', 'GameController@index')->name('management.games');
-        });
 
     });
 
@@ -121,12 +66,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('cliente')->group(function () {
-        Route::prefix('games')->group(function () {
-            Route::get('/detail-cart-all', 'GameController@cartDetailAll')->name('games.cart-detail-all');
-            Route::get('/detail-cart', 'GameController@cartDetail')->name('games.cart-detail');
-            Route::post('/add-cart', 'GameController@addCart')->name('games.add-cart');
 
-        });
     });
 
 });

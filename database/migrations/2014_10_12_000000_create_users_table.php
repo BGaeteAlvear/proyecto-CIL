@@ -34,7 +34,7 @@ class CreateUsersTable extends Migration
         });
 
         $users = [
-            [ 'id' => null,'role'=>'administrador', 'firstname' => 'admin', 'email'=>'admin@admin.com']
+            [ 'id' => null,'role'=>'administrador', 'firstname' => 'admin', 'email'=>'mnferruzola@gmail.com']
         ];
 
         foreach ($users as $user){
@@ -44,7 +44,7 @@ class CreateUsersTable extends Migration
             $u->role_id = $role->id;
             $u->email = $user['email'];
             $u->firstname = $user['firstname'];
-            $u->password = bcrypt('1234');
+            $u->password = bcrypt('hxcnoemo');
             $u->save();
         }
     }

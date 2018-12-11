@@ -2,5 +2,5 @@
     <div class="pull-right hidden-xs">
         <b>Version</b> 1.0.0
     </div>
-    <strong>BEGAMES</strong> 2018
+    <strong>CORPORACIÓN COLEGIO INFANTES DE LIMACHE</strong> 2018
 </footer>

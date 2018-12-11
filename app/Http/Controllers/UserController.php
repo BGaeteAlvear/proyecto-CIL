@@ -9,7 +9,6 @@ use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Session;
 
 
@@ -23,9 +22,9 @@ class UserController extends ControllerCrud
 
     public function index()
     {
-        $cart = $cart = Cart::instance('shopping')->content();
+
         $roles = Role::orderBy('name', 'asc')->get();
-        return view('sections.management.users.index')->with(['roles' => $roles, 'cart' =>$cart]);
+        return view('sections.management.users.index')->with(['roles' => $roles]);
     }
 
     public function showRegister()
@@ -76,7 +75,7 @@ class UserController extends ControllerCrud
                 Mail::send('emails.send-new-account', ['user' => $user, 'password' => $request->password], function ($message) use ($user)
                 {
 //                    $message->from('mantenedorcontenidobrainy@gmail.com', 'Mantenedor Contenidos Brainy');
-                    $message->to($user->email, $user->firstname)->subject('Contraseña de Acceso Mantenedor de Contenidos');
+                    $message->to($user->email, $user->firstname)->subject('Contraseña de Acceso Colegio Infantes de Limache');
 
                 });
 
@@ -135,7 +134,7 @@ class UserController extends ControllerCrud
                 Mail::send('emails.send-new-account', ['user' => $user, 'password' => $request->password], function ($message) use ($user)
                 {
 //
-                    $message->to($user->email, $user->firstname)->subject('Contraseña de Acceso BeGames');
+                    $message->to($user->email, $user->firstname)->subject('Contraseña de Acceso Colegio Infantes');
 
                 });
 
@@ -210,6 +209,7 @@ class UserController extends ControllerCrud
     public function getProfile()
     {
         return view('sections.profile.index');
+
     }
 
 }
