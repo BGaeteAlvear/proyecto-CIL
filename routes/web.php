@@ -14,6 +14,11 @@ Route::post('register/customer', 'UserController@storeCustomer')->name('register
 Auth::routes();
 
 
+Route::get('/vista-cargar-slider', function(){
+    return view('carga_slider');
+    }
+)->name('login.show');
+
 // login y asociados GUEST
 Route::get('/login', 'LoginController@showLogin')->name('login.show');
 Route::post('/login', 'LoginController@login')->name('login');
@@ -69,6 +74,8 @@ Route::middleware('auth')->group(function () {
 
     });
 
+    Route::get('/cargaSlider, UserController@cargaSlider');
+    
 });
 
 

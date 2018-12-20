@@ -212,4 +212,8 @@ class UserController extends ControllerCrud
 
     }
 
+    public function cargaSlider(){
+
+        return view('carga_slider.blade.php');
+    }
 }
